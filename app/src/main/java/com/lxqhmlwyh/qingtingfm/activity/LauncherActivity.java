@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.lxqhmlwyh.qingtingfm.R;
+
 public class LauncherActivity extends AppCompatActivity {
 
     @Override
