@@ -1,14 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.LauncherActivity">
 
     <ImageView
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/qt_logo"/>
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:textSize="@dimen/normal_text_size"
+        android:layout_alignParentRight="true"
+        android:layout_margin="20dp"
+        android:id="@+id/tv_launcher_step"
+        android:textColor="@color/original_red"
+        android:background="@drawable/text_view_count_down_style"
+        android:text="10秒"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:ems="1"
+        android:layout_centerInParent="true"
+        android:textSize="@dimen/normal_text_size"
+        android:textColor="@color/original_red"
+        android:text="更多世界，用听的"/>
+
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/bg_launcher_ad_img"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="© LXQ"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"/>
 
 </RelativeLayout>
