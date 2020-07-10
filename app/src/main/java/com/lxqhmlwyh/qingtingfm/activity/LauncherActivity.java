@@ -8,15 +8,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.lxqhmlwyh.qingtingfm.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.Random;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+
 
 public class LauncherActivity extends AppCompatActivity {
 
     private TextView countDownText;//倒计时文本view
+    private TextView sayingText;//显示名人名言
     private Intent intent;
     private int num=10;
     private static final int UPDATE_TEXT=2;
@@ -29,6 +43,7 @@ public class LauncherActivity extends AppCompatActivity {
         setContentView(R.layout.activity_launcher);
         initView();
         initData();
+        getSaying();
         countDownTask();
     }
 
@@ -38,7 +53,7 @@ public class LauncherActivity extends AppCompatActivity {
     private void initView(){
         //getSupportActionBar().hide();
         countDownText=findViewById(R.id.tv_launcher_step);
-
+        sayingText=findViewById(R.id.tv_launcher_saying);
         //跳过倒计时
         countDownText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +99,38 @@ public class LauncherActivity extends AppCompatActivity {
 
 
     /**
+     * 从阿凡达获取数据
+     */
+    private void getSaying(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OkHttpClient okHttp=new OkHttpClient();
+                int page=new Random().nextInt(10)+1;
+                Request request=new Request.Builder().url("http://api.avatardata.cn/MingRenMingYan/LookUp?" +
+                        "key=82d0485323844626b580dbc43be57fd7&keyword=天才&page="+page+"&rows=1").build();
+                try {
+                    Response response=okHttp.newCall(request).execute();
+                    ResponseBody responseBody=response.body();
+                    JSONObject jsonObject=new JSONObject(responseBody.string());
+                    JSONArray resultArray=jsonObject.getJSONArray("result");
+                    JSONObject resultObj=resultArray.getJSONObject(0);
+                    String sayingStr=resultObj.getString("famous_saying")
+                            +"——"+resultObj.getString("famous_name");
+
+                    Message msg=new Message();
+                    msg.what=3;
+                    msg.obj=sayingStr;
+                    handler.sendMessage(msg);
+
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    /**
      * 更新UI
      */
     @SuppressLint("HandlerLeak")
@@ -98,6 +145,9 @@ public class LauncherActivity extends AppCompatActivity {
                     break;
                 case UPDATE_TEXT:
                     countDownText.setText(num+"秒");
+                    break;
+                case 3:
+                    sayingText.setText(msg.obj.toString());
                     break;
             }
         }

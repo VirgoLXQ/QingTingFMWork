@@ -42,6 +42,17 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/tv_launcher_saying"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/normal_text_size"
+        android:gravity="center"
+        android:padding="10dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="© LXQ"
         android:layout_alignParentBottom="true"
         android:gravity="center"/>

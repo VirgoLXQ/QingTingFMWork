@@ -6,5 +6,6 @@
 
 <!--    by LXQ  -->
     <color name="original_red">#FF0000</color>
+    <color name="original_white">#FFF</color>
 <!--    end     -->
 </resources>
