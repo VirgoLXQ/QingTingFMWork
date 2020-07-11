@@ -10,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         app:labelVisibilityMode="labeled"
-        app:itemBackground="@color/colorAccent"
+        app:itemBackground="@color/material_red"
         android:layout_alignParentBottom="true"
-        app:itemTextColor="@color/original_red"
+        app:itemTextColor="@color/font_white"
         app:menu="@menu/menu_bottom_navigation_view"/>
 
 </RelativeLayout>
