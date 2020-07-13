@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--导航栏-->
+    <RelativeLayout
+        android:id="@+id/dialog_add_cinema_layout_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <SearchView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:iconifiedByDefault="false"
+            android:queryHint="请输入关键词搜索" />
+        <TextView
+            android:id="@+id/dialog_add_cinema_tv_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="广西"
+            android:textSize="20dp"
+            android:paddingTop="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+
+    </LinearLayout>
