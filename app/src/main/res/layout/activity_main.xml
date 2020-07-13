@@ -9,10 +9,12 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="55dp"
+        android:id="@+id/main_bottom_nav"
         app:labelVisibilityMode="labeled"
         app:itemBackground="@color/material_red"
         android:layout_alignParentBottom="true"
-        app:itemTextColor="@color/font_white"
+        app:itemIconTint="@color/selector_nav_icon"
+        app:itemTextColor="@color/material_grey"
         app:menu="@menu/menu_bottom_navigation_view"/>
 
 </RelativeLayout>

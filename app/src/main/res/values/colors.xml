@@ -10,8 +10,8 @@
     <color name="original_red">#FF0000</color>
     <color name="original_white">#FFF</color>
 
-    <color name="material_red">#dd191d</color>
-    <color name="material_grey">#eee</color>
+    <color name="material_red">#F44336</color>
+    <color name="material_grey">#e0e0e0</color>
     <color name="material_blue">#3f51b5</color>
 <!--    end     -->
 </resources>
