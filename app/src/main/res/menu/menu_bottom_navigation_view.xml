@@ -11,8 +11,4 @@
     <item
         android:title="分析"
         android:icon="@mipmap/nav_analyse"/>
-
-    <item
-        android:title="我"
-        android:icon="@mipmap/nav_me"/>
 </menu>

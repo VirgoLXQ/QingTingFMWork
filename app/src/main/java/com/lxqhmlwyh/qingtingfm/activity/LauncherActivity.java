@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.lxqhmlwyh.qingtingfm.R;
+import com.lxqhmlwyh.qingtingfm.utils.CommonHttpRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -105,14 +106,11 @@ public class LauncherActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                OkHttpClient okHttp=new OkHttpClient();
                 int page=new Random().nextInt(10)+1;
-                Request request=new Request.Builder().url("http://api.avatardata.cn/MingRenMingYan/LookUp?" +
-                        "key=82d0485323844626b580dbc43be57fd7&keyword=天才&page="+page+"&rows=1").build();
+                ResponseBody responseBody= CommonHttpRequest.getHttp("http://api.avatardata.cn/MingRenMingYan/LookUp?" +
+                        "key=82d0485323844626b580dbc43be57fd7&keyword=天才&page="+page+"&rows=1").body();
                 try {
-                    Response response=okHttp.newCall(request).execute();
-                    ResponseBody responseBody=response.body();
-                    JSONObject jsonObject=new JSONObject(responseBody.string());
+                    JSONObject jsonObject = new JSONObject(responseBody.string());
                     JSONArray resultArray=jsonObject.getJSONArray("result");
                     JSONObject resultObj=resultArray.getJSONObject(0);
                     String sayingStr=resultObj.getString("famous_saying")
@@ -121,9 +119,11 @@ public class LauncherActivity extends AppCompatActivity {
                     Message msg=new Message();
                     msg.what=3;
                     msg.obj=sayingStr;
-                    handler.sendMessage(msg);
 
-                } catch (IOException | JSONException e) {
+                    handler.sendMessage(msg);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }

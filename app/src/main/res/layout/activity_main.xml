@@ -17,4 +17,10 @@
         app:itemTextColor="@color/material_grey"
         app:menu="@menu/menu_bottom_navigation_view"/>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/main_frame"
+        android:layout_above="@id/main_bottom_nav"/>
+
 </RelativeLayout>
