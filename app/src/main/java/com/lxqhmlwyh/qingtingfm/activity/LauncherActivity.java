@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.lxqhmlwyh.qingtingfm.R;
+import com.lxqhmlwyh.qingtingfm.service.InitDataService;
 import com.lxqhmlwyh.qingtingfm.utils.CommonHttpRequest;
 
 import org.json.JSONArray;
@@ -69,6 +70,7 @@ public class LauncherActivity extends AppCompatActivity {
      */
     private void initData(){
         intent=new Intent(LauncherActivity.this,MainActivity.class);
+        startService(new Intent(this, InitDataService.class));
     }
 
     /**
