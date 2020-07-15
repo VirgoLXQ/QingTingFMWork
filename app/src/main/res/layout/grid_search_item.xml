@@ -1,38 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="130dp"
     android:layout_height="wrap_content">
-    <ImageView
+    <RelativeLayout
         android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:src="@mipmap/ic_launcher"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="魔法女王"
-        android:layout_marginTop="130dp" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
+
         <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@mipmap/rentou"
-            android:layout_marginTop="150dp"/>
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:src="@mipmap/ic_launcher" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="魔仙堡老大"
-            android:textSize="12dp"
-            android:layout_marginTop="156dp"/>
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@mipmap/wujiaoxing"
-            android:layout_marginTop="150dp"/>
+            android:layout_marginTop="130dp"
+            android:text="魔法女王" />
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-</RelativeLayout>
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="150dp"
+                android:src="@mipmap/rentou" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="156dp"
+                android:text="魔仙堡老大"
+                android:textSize="12dp" />
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="150dp"
+                android:src="@mipmap/wujiaoxing" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

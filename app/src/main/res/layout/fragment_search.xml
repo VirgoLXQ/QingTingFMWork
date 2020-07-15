@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -8,7 +7,8 @@
     <RelativeLayout
         android:id="@+id/dialog_add_cinema_layout_area"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="50dp">
+
         <SearchView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -17,32 +17,43 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true">
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:paddingRight="10dp">
+
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@mipmap/dingwei"
-                android:layout_marginTop="10dp"/>
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:src="@mipmap/dingwei" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="5dp"
                 android:text="广西"
                 android:textColor="#0B0A0A"
-                android:layout_marginTop="18dp"/>
+                android:textSize="20dp" />
+
             <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:src="@mipmap/xiala"
-                android:layout_marginLeft="7dp"
-                android:layout_marginTop="21dp"/>
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:src="@mipmap/xiala" />
 
         </LinearLayout>
 
     </RelativeLayout>
 
-    <GridView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:id="@+id/swipe"
+        android:layout_height="match_parent">
 
-    </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</LinearLayout>

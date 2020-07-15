@@ -2,13 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:title="专辑"
+        android:id="@+id/nav_menu_album"
         android:icon="@mipmap/nav_album"/>
 
     <item
         android:title="搜索"
+        android:id="@+id/nav_menu_find"
         android:icon="@mipmap/nav_find"/>
 
     <item
         android:title="分析"
+        android:id="@+id/nav_menu_analyse"
         android:icon="@mipmap/nav_analyse"/>
 </menu>

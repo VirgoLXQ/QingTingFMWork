@@ -48,15 +48,16 @@ public class InitDataService extends IntentService {
      */
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        Response response= CommonHttpRequest.getHttp("https://rapi.qingting.fm/regions");
-        ResponseBody responseBody=response.body();
 
-        Response response2= CommonHttpRequest.getHttp("https://rapi.qingting.fm/categories?type=channel");
-        ResponseBody responseBody2=response2.body();
-
-        Response response3= CommonHttpRequest.getHttp("https://ip.qingting.fm/ip");
-        ResponseBody responseBody3=response3.body();
         try {
+            Response response= CommonHttpRequest.getHttp("https://rapi.qingting.fm/regions");
+            ResponseBody responseBody=response.body();
+
+            Response response2= CommonHttpRequest.getHttp("https://rapi.qingting.fm/categories?type=channel");
+            ResponseBody responseBody2=response2.body();
+
+            Response response3= CommonHttpRequest.getHttp("https://ip.qingting.fm/ip");
+            ResponseBody responseBody3=response3.body();
 
             JSONObject data=new JSONObject(responseBody.string());
             JSONArray array=data.getJSONArray("Data");

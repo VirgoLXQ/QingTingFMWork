@@ -108,10 +108,11 @@ public class LauncherActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                int page=new Random().nextInt(10)+1;
-                ResponseBody responseBody= CommonHttpRequest.getHttp("http://api.avatardata.cn/MingRenMingYan/LookUp?" +
-                        "key=82d0485323844626b580dbc43be57fd7&keyword=天才&page="+page+"&rows=1").body();
+
                 try {
+                    int page=new Random().nextInt(10)+1;
+                    ResponseBody responseBody= CommonHttpRequest.getHttp("http://api.avatardata.cn/MingRenMingYan/LookUp?" +
+                            "key=82d0485323844626b580dbc43be57fd7&keyword=天才&page="+page+"&rows=1").body();
                     JSONObject jsonObject = new JSONObject(responseBody.string());
                     JSONArray resultArray=jsonObject.getJSONArray("result");
                     JSONObject resultObj=resultArray.getJSONObject(0);
