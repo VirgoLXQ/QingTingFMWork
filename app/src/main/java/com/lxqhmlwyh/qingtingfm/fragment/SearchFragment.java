@@ -6,6 +6,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -69,6 +71,7 @@ public class SearchFragment extends Fragment {
         popupWindow = new PopupWindow();
         chooseDialog = View.inflate(getActivity(), R.layout.choose_province_dialog, null);
         popupWindow.setContentView(chooseDialog);
+        //popupWindow.setFocusable(true);
         provinceList = chooseDialog.findViewById(R.id.dialog_list_view);
         final List<String> provinces = new ArrayList<>();
         JSONArray provinceData = InitDataService.getDistrict();
@@ -98,14 +101,17 @@ public class SearchFragment extends Fragment {
         if (popupWindow.isShowing()) return;
         /*((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE))
                 .hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);*/
-        backgroundAlpha(0.5f);
+        //backgroundAlpha(0.5f);
+        maskLayout.setVisibility(View.VISIBLE);
+        maskLayout.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.anim_choose_dialog_mask_after));
         popupWindow.setWidth(view.getLayoutParams().width);
         popupWindow.setHeight(view.getHeight() / 2);
-        popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+        //popupWindow.setAnimationStyle(R.style.pop_animation);
+        //popupWindow.showAtLocation(maskLayout, Gravity.BOTTOM, 0, 0);
+        popupWindow.showAsDropDown(view);
         chooseDialog.findViewById(R.id.close_choose_dialog).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 dismissDialog();
             }
         });
@@ -129,17 +135,18 @@ public class SearchFragment extends Fragment {
     /**
      * 遮罩层
      */
-    private void backgroundAlpha(float f) {
+    /*private void backgroundAlpha(float f) {
         maskLayout.setAlpha(f);
         maskLayout.setVisibility(View.VISIBLE);
-    }
+    }*/
 
     /**
      * 关闭dialog
      */
     public void dismissDialog() {
         popupWindow.dismiss();
-        backgroundAlpha(1);
+        //backgroundAlpha(1);
+        maskLayout.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.anim_choose_dialog_mask_before));
         maskLayout.setVisibility(View.GONE);
     }
 }
