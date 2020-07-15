@@ -3,8 +3,10 @@ package com.lxqhmlwyh.qingtingfm.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -14,11 +16,11 @@ import com.lxqhmlwyh.qingtingfm.fragment.SearchFragment;
 public class MainActivity extends AppCompatActivity {
 
     private SearchFragment searchFragment;
-
     private BottomNavigationView bottomNav;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_main);
         initView();
     }
@@ -32,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView.OnNavigationItemSelectedListener navListener=new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-            //Toast.makeText(MainActivity.this, "你选择了："+menuItem.getTitle(), Toast.LENGTH_SHORT).show();
             switch (menuItem.getItemId()){
                 case R.id.nav_menu_find://切换到SearchFragment
                     getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,searchFragment).commit();
@@ -42,4 +43,11 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    @Override
+    public void onBackPressed() {
+        Intent home = new Intent(Intent.ACTION_MAIN);
+        home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        home.addCategory(Intent.CATEGORY_HOME);
+        startActivity(home);
+    }
 }
