@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/original_white">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/normal_text_size"
+        android:padding="10dp"
+        android:text="请选择省份"
+        android:textColor="@color/font_white"
+        android:background="@color/material_red"
+        android:gravity="center"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/close"
+        android:id="@+id/close_choose_dialog"
+        android:layout_alignParentRight="true"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:id="@+id/dialog_list_view"
+        android:layout_below="@+id/close_choose_dialog"/>
+
+
+</RelativeLayout>

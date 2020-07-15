@@ -13,18 +13,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:iconifiedByDefault="false"
+            android:id="@+id/search_view"
+            android:layout_toLeftOf="@id/choose_province"
             android:queryHint="请输入关键词搜索" />
 
         <LinearLayout
+            android:background="@color/material_red"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:id="@+id/choose_province"
             android:layout_alignParentRight="true"
             android:paddingRight="10dp">
 
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
-                android:src="@mipmap/dingwei" />
+                android:src="@mipmap/location" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -33,13 +37,14 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="5dp"
                 android:text="广西"
-                android:textColor="#0B0A0A"
+                android:id="@+id/tv_province"
+                android:textColor="@color/font_white"
                 android:textSize="20dp" />
 
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="match_parent"
-                android:src="@mipmap/xiala" />
+                android:src="@mipmap/down" />
 
         </LinearLayout>
 

@@ -80,6 +80,12 @@ public class InitDataService extends IntentService {
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.e("InitDataService","初始化数据服务结束");
+    }
+
     public static JSONArray getDistrict(){
         if (district!=null)return district;
         return null;
