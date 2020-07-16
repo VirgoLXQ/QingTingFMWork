@@ -23,6 +23,8 @@
 
         <service android:name=".service.InitDataService"
             android:enabled="true"/>
+        <service android:name=".service.GetFMItemJsonService"
+            android:enabled="true"/>
     </application>
 
 </manifest>

@@ -18,6 +18,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.lxqhmlwyh.qingtingfm.R;
@@ -39,6 +40,7 @@ public class SearchFragment extends Fragment {
     private ListView provinceList;
     private TextView tvProvince;
     private RelativeLayout maskLayout;
+    private RecyclerView fmRecyclerView;
 
     @Nullable
     @Override
@@ -53,14 +55,16 @@ public class SearchFragment extends Fragment {
     private void initView() {
         swipeRefreshLayout = view.findViewById(R.id.swipe);
         tvProvince = view.findViewById(R.id.tv_province);
+        fmRecyclerView=view.findViewById(R.id.fm_recycler_view);
         maskLayout = view.findViewById(R.id.fragment_search_mask);
         maskLayout.setOnClickListener(onClickListener);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipeRefreshLayout.setEnabled(false);
+        /*swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 swipeRefreshLayout.setRefreshing(false);
             }
-        });
+        });*/
         view.findViewById(R.id.choose_province).setOnClickListener(onClickListener);
     }
 

@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.lxqhmlwyh.qingtingfm.R;
 import com.lxqhmlwyh.qingtingfm.fragment.SearchFragment;
+import com.lxqhmlwyh.qingtingfm.service.GetFMItemJsonService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_main);
+
         initView();
     }
     private void initView(){
@@ -42,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
+
+    private void startService(){
+        Intent getFmItemJs=new Intent(this, GetFMItemJsonService.class);
+        startService(getFmItemJs);
+    }
 
     @Override
     public void onBackPressed() {

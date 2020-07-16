@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="130dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_width="130dp"
@@ -9,11 +9,13 @@
         <ImageView
             android:layout_width="130dp"
             android:layout_height="130dp"
+            android:id="@+id/card_view_item_cover"
             android:src="@mipmap/ic_launcher" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/card_view_item_title"
             android:layout_marginTop="130dp"
             android:text="魔法女王" />
 
@@ -32,12 +34,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="156dp"
+                android:id="@+id/card_view_item_audience"
                 android:text="魔仙堡老大"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:textSize="12dp" />
 
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
+                android:id="@+id/card_view_item_favorite"
                 android:layout_marginTop="150dp"
                 android:src="@mipmap/wujiaoxing" />
 

@@ -22,6 +22,7 @@ public class InitDataService extends IntentService {
     private static JSONArray district;//所有地区的json数据
     private static JSONArray categories;//电台类别json数据
     private static JSONObject userLocationInfo;//用户所在地json数据
+    private static boolean INTERNET_ERROR=false;
 
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
@@ -77,6 +78,9 @@ public class InitDataService extends IntentService {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (Exception e){
+            INTERNET_ERROR=true;
+            Log.e("InitDataService","网络错误");
         }
     }
 
