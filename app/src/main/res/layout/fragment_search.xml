@@ -7,6 +7,7 @@
     <RelativeLayout
         android:id="@+id/dialog_add_cinema_layout_area"
         android:layout_width="match_parent"
+        android:background="@color/material_red"
         android:layout_height="50dp">
 
         <SearchView
@@ -14,11 +15,11 @@
             android:layout_height="wrap_content"
             android:iconifiedByDefault="false"
             android:id="@+id/search_view"
+
             android:layout_toLeftOf="@id/choose_province"
             android:queryHint="请输入关键词搜索" />
 
         <LinearLayout
-            android:background="@color/material_red"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/choose_province"
@@ -57,6 +58,7 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fm_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
