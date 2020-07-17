@@ -45,6 +45,7 @@ public class GetFMItemJsonService extends IntentService {
             JSONObject dataJson=new JSONObject(jsonData);
             JSONArray item=dataJson.getJSONObject("Data").getJSONArray("items");
             LAST_GET_JSON=item;
+            Log.e("获取结果",item.toString());
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }

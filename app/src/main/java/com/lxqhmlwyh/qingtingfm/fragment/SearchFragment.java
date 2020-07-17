@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -79,7 +80,11 @@ public class SearchFragment extends Fragment {
         provinceList = chooseDialog.findViewById(R.id.dialog_list_view);
         final List<String> provinces = new ArrayList<>();
         JSONArray provinceData = InitDataService.getDistrict();
-        for (int i = 0; i <= provinceData.length(); i++) {
+        if(provinceData==null){
+            Toast.makeText(getActivity(), "获取地区数据失败", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        for (int i = 0; i < provinceData.length(); i++) {
             try {
                 JSONObject tempStr = provinceData.getJSONObject(i);
                 provinces.add(tempStr.getString("title"));
