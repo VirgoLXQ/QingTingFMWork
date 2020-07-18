@@ -1,2 +1,3 @@
+include ':glide-4.8.0'
 include ':app'
 rootProject.name = "QingTingFMWork"

@@ -1,5 +1,6 @@
 package com.lxqhmlwyh.qingtingfm.adapter;
 
+import android.content.Context;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,10 +8,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.lxqhmlwyh.qingtingfm.R;
 import com.lxqhmlwyh.qingtingfm.pojo.FMCardView;
 
@@ -19,9 +23,11 @@ import java.util.List;
 public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<FMCardView> data;
+    private Context context;
 
-    public SearchRecyclerViewAdapter(List<FMCardView> data){
+    public SearchRecyclerViewAdapter(Context context,List<FMCardView> data){
         this.data=data;
+        this.context=context;
     }
 
     @NonNull
@@ -41,11 +47,18 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof CardViewHolder){
-            FMCardView fmCardView=data.get(position);
-            ((CardViewHolder) holder).audienceTextView.setText(fmCardView.getAudience());
+            final FMCardView fmCardView=data.get(position);
+            ((CardViewHolder) holder).audienceTextView.setText(fmCardView.getAudience_count()+"");
             ((CardViewHolder) holder).titleTextView.setText(fmCardView.getTitle());
-            ((CardViewHolder) holder).coverImg.setImageURI(Uri.parse(fmCardView.getCover()));
+            Glide.with(context).load(fmCardView.getCover())
+                    .into(((CardViewHolder) holder).coverImg);
             ((CardViewHolder) holder).favorImg.setImageResource(R.mipmap.wujiaoxing);
+            ((CardViewHolder) holder).cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Toast.makeText(context, fmCardView.getDescription(), Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 
@@ -56,7 +69,6 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public int getItemViewType(int position) {
-        //return super.getItemViewType(position);
         if (position==data.size()){
             return 1;
         }else{
@@ -75,6 +87,7 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         TextView titleTextView;
         ImageView favorImg;
         TextView audienceTextView;
+        CardView cardView;
 
         public CardViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -82,6 +95,7 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
             titleTextView=itemView.findViewById(R.id.card_view_item_title);
             favorImg=itemView.findViewById(R.id.card_view_item_favorite);
             audienceTextView=itemView.findViewById(R.id.card_view_item_audience);
+            cardView=itemView.findViewById(R.id.card_view);
         }
     }
 

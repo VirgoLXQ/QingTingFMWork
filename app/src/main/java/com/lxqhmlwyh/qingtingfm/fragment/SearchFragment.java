@@ -19,10 +19,16 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.lxqhmlwyh.qingtingfm.R;
+import com.lxqhmlwyh.qingtingfm.adapter.SearchRecyclerViewAdapter;
+import com.lxqhmlwyh.qingtingfm.pojo.FMCardView;
+import com.lxqhmlwyh.qingtingfm.service.GetFMItemJsonService;
 import com.lxqhmlwyh.qingtingfm.service.InitDataService;
 
 import org.json.JSONArray;
@@ -50,6 +56,7 @@ public class SearchFragment extends Fragment {
         this.view = view;
         initView();
         initDialog();
+        showFM();
         return view;
     }
 
@@ -101,6 +108,20 @@ public class SearchFragment extends Fragment {
                 dismissDialog();
             }
         });
+    }
+
+    /**
+     * 显示FM
+     */
+    private void showFM(){
+        JSONArray fmItemJson= GetFMItemJsonService.getLastGetJson();
+        Gson gson=new Gson();
+        List<FMCardView> list=
+                gson.fromJson(fmItemJson.toString(), new TypeToken<List<FMCardView>>(){}.getType());
+        SearchRecyclerViewAdapter adapter=new SearchRecyclerViewAdapter(getActivity(),list);
+        GridLayoutManager manager=new GridLayoutManager(getActivity(),3);
+        fmRecyclerView.setLayoutManager(manager);
+        fmRecyclerView.setAdapter(adapter);
     }
 
     /**

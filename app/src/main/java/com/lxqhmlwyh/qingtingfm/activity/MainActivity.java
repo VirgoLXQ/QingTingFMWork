@@ -40,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.nav_menu_find://切换到SearchFragment
                     getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,searchFragment).commit();
                     break;
+                case R.id.nav_menu_album:
+                    break;
+                case R.id.nav_menu_analyse:
+                    break;
             }
             return true;
         }

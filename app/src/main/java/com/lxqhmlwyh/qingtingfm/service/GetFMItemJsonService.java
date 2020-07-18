@@ -23,6 +23,8 @@ public class GetFMItemJsonService extends IntentService {
 
     private static JSONArray LAST_GET_JSON;
 
+
+
     public GetFMItemJsonService(String name) {
         super(name);
     }
@@ -46,7 +48,17 @@ public class GetFMItemJsonService extends IntentService {
             JSONArray item=dataJson.getJSONObject("Data").getJSONArray("items");
             LAST_GET_JSON=item;
             Log.e("获取结果",item.toString());
-        } catch (IOException | JSONException e) {
+
+            /*Gson gson=new Gson();
+            List<FMCardView> list=
+            gson.fromJson(item.toString(), new TypeToken<List<FMCardView>>(){}.getType());
+
+            for (FMCardView cardView:list){
+                Log.e("FMCardView",cardView.toString());
+            }*/
+
+        }
+      catch (IOException | JSONException e) {
             e.printStackTrace();
         }
 

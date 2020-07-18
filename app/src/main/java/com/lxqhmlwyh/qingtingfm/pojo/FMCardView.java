@@ -6,7 +6,7 @@ public class FMCardView {
     private String cover;
     private String title;
     private boolean favorite;
-    private int audience;
+    private int audience_count;
 
     public int getContent_id() {
         return content_id;
@@ -48,12 +48,12 @@ public class FMCardView {
         this.favorite = favorite;
     }
 
-    public int getAudience() {
-        return audience;
+    public int getAudience_count() {
+        return audience_count;
     }
 
-    public void setAudience(int audience) {
-        this.audience = audience;
+    public void setAudience_count(int audience_count) {
+        this.audience_count = audience_count;
     }
 
     @Override
@@ -64,7 +64,7 @@ public class FMCardView {
                 ", cover='" + cover + '\'' +
                 ", title='" + title + '\'' +
                 ", favorite=" + favorite +
-                ", audience=" + audience +
+                ", audience_count=" + audience_count +
                 '}';
     }
 }
