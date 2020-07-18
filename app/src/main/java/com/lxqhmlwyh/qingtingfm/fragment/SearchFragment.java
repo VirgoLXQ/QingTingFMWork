@@ -122,6 +122,7 @@ public class SearchFragment extends Fragment {
         GridLayoutManager manager=new GridLayoutManager(getActivity(),3);
         fmRecyclerView.setLayoutManager(manager);
         fmRecyclerView.setAdapter(adapter);
+
     }
 
     /**

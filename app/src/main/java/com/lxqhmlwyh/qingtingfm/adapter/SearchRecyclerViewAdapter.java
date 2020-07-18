@@ -2,6 +2,8 @@ package com.lxqhmlwyh.qingtingfm.adapter;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -44,19 +47,27 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof CardViewHolder){
             final FMCardView fmCardView=data.get(position);
             ((CardViewHolder) holder).audienceTextView.setText(fmCardView.getAudience_count()+"");
             ((CardViewHolder) holder).titleTextView.setText(fmCardView.getTitle());
             Glide.with(context).load(fmCardView.getCover())
                     .into(((CardViewHolder) holder).coverImg);
-            ((CardViewHolder) holder).favorImg.setImageResource(R.mipmap.wujiaoxing);
+            ((CardViewHolder) holder).favorImg.setImageResource(R.mipmap.heart_grey);
             ((CardViewHolder) holder).cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     //Toast.makeText(context, fmCardView.getDescription(), Toast.LENGTH_SHORT).show();
+                }
+            });
+            ((CardViewHolder) holder).favorImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(context, "你收藏了这个电台", Toast.LENGTH_SHORT).show();
+                    ((CardViewHolder) holder).favorImg.setImageResource(R.mipmap.heart_red);
                 }
             });
         }
@@ -70,8 +81,10 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
     @Override
     public int getItemViewType(int position) {
         if (position==data.size()){
+            Log.e("getItemViewType()","true and position is "+position);
             return 1;
         }else{
+            Log.e("getItemViewType()","false and position is "+position);
             return 0;
         }
     }
