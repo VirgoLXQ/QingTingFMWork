@@ -67,6 +67,7 @@ public class SearchFragment extends Fragment {
         maskLayout = view.findViewById(R.id.fragment_search_mask);
         maskLayout.setOnClickListener(onClickListener);
         swipeRefreshLayout.setEnabled(false);
+        fmRecyclerView.addOnScrollListener(scrollListener);
         /*swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -75,6 +76,18 @@ public class SearchFragment extends Fragment {
         });*/
         view.findViewById(R.id.choose_province).setOnClickListener(onClickListener);
     }
+
+    RecyclerView.OnScrollListener scrollListener=new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+        }
+
+        @Override
+        public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+        }
+    };
 
     /**
      * 初始化dialog
