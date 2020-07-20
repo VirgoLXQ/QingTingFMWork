@@ -1,6 +1,7 @@
 package com.lxqhmlwyh.qingtingfm.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.lxqhmlwyh.qingtingfm.R;
+import com.lxqhmlwyh.qingtingfm.activity.PlayActivity;
 import com.lxqhmlwyh.qingtingfm.pojo.FMCardView;
 
 import java.util.List;
@@ -61,6 +63,7 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
                 @Override
                 public void onClick(View view) {
                     //Toast.makeText(context, fmCardView.getDescription(), Toast.LENGTH_SHORT).show();
+                    context.startActivity(new Intent(context, PlayActivity.class));
                 }
             });
             ((CardViewHolder) holder).favorImg.setOnClickListener(new View.OnClickListener() {
