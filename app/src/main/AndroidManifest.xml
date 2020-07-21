@@ -13,7 +13,8 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.MainActivity"/>
-        <activity android:name=".activity.PlayActivity"/>
+        <activity android:name=".activity.PlayActivity"
+            android:launchMode="singleInstance"/>
         <activity android:name=".activity.LauncherActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,6 +26,8 @@
         <service android:name=".service.InitDataService"
             android:enabled="true"/>
         <service android:name=".service.GetFMItemJsonService"
+            android:enabled="true"/>
+        <service android:name=".service.PlayService"
             android:enabled="true"/>
     </application>
 

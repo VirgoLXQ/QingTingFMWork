@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.lxqhmlwyh.qingtingfm.R;
 import com.lxqhmlwyh.qingtingfm.activity.PlayActivity;
 import com.lxqhmlwyh.qingtingfm.pojo.FMCardView;
+import com.lxqhmlwyh.qingtingfm.service.PlayService;
 
 import java.util.List;
 
@@ -59,11 +60,16 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
             Glide.with(context).load(fmCardView.getCover())
                     .into(((CardViewHolder) holder).coverImg);
             ((CardViewHolder) holder).favorImg.setImageResource(R.mipmap.heart_grey);
+            ((CardViewHolder) holder).cardView.setTooltipText(fmCardView.getDescription());
             ((CardViewHolder) holder).cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     //Toast.makeText(context, fmCardView.getDescription(), Toast.LENGTH_SHORT).show();
-                    context.startActivity(new Intent(context, PlayActivity.class));
+                    Intent toPlay=new Intent(context,PlayActivity.class);
+                    toPlay.putExtra("channelName",fmCardView.getTitle());
+                    toPlay.putExtra("cover",fmCardView.getCover());
+                    context.startActivity(toPlay);
+                    context.startService(new Intent(context, PlayService.class));
                 }
             });
             ((CardViewHolder) holder).favorImg.setOnClickListener(new View.OnClickListener() {
