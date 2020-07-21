@@ -30,6 +30,7 @@ import com.lxqhmlwyh.qingtingfm.activity.PlayActivity;
 import com.lxqhmlwyh.qingtingfm.adapter.SearchRecyclerViewAdapter;
 import com.lxqhmlwyh.qingtingfm.pojo.District;
 import com.lxqhmlwyh.qingtingfm.pojo.FMCardView;
+import com.lxqhmlwyh.qingtingfm.pojo.FMCardViewJson;
 import com.lxqhmlwyh.qingtingfm.service.GetFMItemJsonService;
 import com.lxqhmlwyh.qingtingfm.service.InitDataService;
 
@@ -134,8 +135,8 @@ public class SearchFragment extends Fragment {
     private void showFM(){
         JSONArray fmItemJson= GetFMItemJsonService.getLastGetJson();
         Gson gson=new Gson();
-        List<FMCardView> list=
-                gson.fromJson(fmItemJson.toString(), new TypeToken<List<FMCardView>>(){}.getType());
+        List<FMCardViewJson> list=
+                gson.fromJson(fmItemJson.toString(), new TypeToken<List<FMCardViewJson>>(){}.getType());
         adapter=new SearchRecyclerViewAdapter(getActivity(),list);
         GridLayoutManager manager=new GridLayoutManager(getActivity(),3);
         fmRecyclerView.setLayoutManager(manager);

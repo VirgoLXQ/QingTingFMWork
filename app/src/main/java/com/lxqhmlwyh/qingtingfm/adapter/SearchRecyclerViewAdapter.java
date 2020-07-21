@@ -24,6 +24,7 @@ import com.google.gson.reflect.TypeToken;
 import com.lxqhmlwyh.qingtingfm.R;
 import com.lxqhmlwyh.qingtingfm.activity.PlayActivity;
 import com.lxqhmlwyh.qingtingfm.pojo.FMCardView;
+import com.lxqhmlwyh.qingtingfm.pojo.FMCardViewJson;
 import com.lxqhmlwyh.qingtingfm.service.GetFMItemJsonService;
 import com.lxqhmlwyh.qingtingfm.service.PlayService;
 
@@ -33,10 +34,10 @@ import java.util.List;
 
 public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<FMCardView> data;
+    private List<FMCardViewJson> data;
     private Context context;
 
-    public SearchRecyclerViewAdapter(Context context,List<FMCardView> data){
+    public SearchRecyclerViewAdapter(Context context,List<FMCardViewJson> data){
         this.data=data;
         this.context=context;
     }
@@ -59,13 +60,13 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof CardViewHolder){
-            final FMCardView fmCardView=data.get(position);
+            final FMCardViewJson fmCardView=data.get(position);
             ((CardViewHolder) holder).audienceTextView.setText(fmCardView.getAudience_count()+"");
             ((CardViewHolder) holder).titleTextView.setText(fmCardView.getTitle());
             Glide.with(context).load(fmCardView.getCover())
                     .into(((CardViewHolder) holder).coverImg);
             ((CardViewHolder) holder).favorImg.setImageResource(R.mipmap.heart_grey);
-            ((CardViewHolder) holder).cardView.setTooltipText(fmCardView.getDescription());
+            //((CardViewHolder) holder).cardView.setTooltipText(fmCardView.getDescription());
             ((CardViewHolder) holder).cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -87,16 +88,16 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         }
     }
 
-    public void upData(List<FMCardView> data){
+    /*public void upData(List<FMCardView> data){
         this.data=data;
         notifyDataSetChanged();
-    }
+    }*/
 
     public void upData(){
         JSONArray array=GetFMItemJsonService.getLastGetJson();
         Gson gson=new Gson();
-        List<FMCardView> list=
-                gson.fromJson(array.toString(), new TypeToken<List<FMCardView>>(){}.getType());
+        List<FMCardViewJson> list=
+                gson.fromJson(array.toString(), new TypeToken<List<FMCardViewJson>>(){}.getType());
         this.data= list;
         notifyDataSetChanged();
     }
