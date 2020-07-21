@@ -19,10 +19,15 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.lxqhmlwyh.qingtingfm.R;
 import com.lxqhmlwyh.qingtingfm.activity.PlayActivity;
 import com.lxqhmlwyh.qingtingfm.pojo.FMCardView;
+import com.lxqhmlwyh.qingtingfm.service.GetFMItemJsonService;
 import com.lxqhmlwyh.qingtingfm.service.PlayService;
+
+import org.json.JSONArray;
 
 import java.util.List;
 
@@ -82,8 +87,17 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         }
     }
 
-    public void upDate(List<FMCardView> data){
+    public void upData(List<FMCardView> data){
         this.data=data;
+        notifyDataSetChanged();
+    }
+
+    public void upData(){
+        JSONArray array=GetFMItemJsonService.getLastGetJson();
+        Gson gson=new Gson();
+        List<FMCardView> list=
+                gson.fromJson(array.toString(), new TypeToken<List<FMCardView>>(){}.getType());
+        this.data= list;
         notifyDataSetChanged();
     }
 

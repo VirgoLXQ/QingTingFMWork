@@ -13,6 +13,7 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.MainActivity"/>
+        <activity android:name=".activity.PlayListActivity"/>
         <activity android:name=".activity.PlayActivity"
             android:launchMode="singleInstance"/>
         <activity android:name=".activity.LauncherActivity">

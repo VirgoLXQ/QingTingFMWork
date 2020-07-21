@@ -3,6 +3,7 @@ package com.lxqhmlwyh.qingtingfm.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import com.google.gson.reflect.TypeToken;
 import com.lxqhmlwyh.qingtingfm.R;
 import com.lxqhmlwyh.qingtingfm.activity.PlayActivity;
 import com.lxqhmlwyh.qingtingfm.adapter.SearchRecyclerViewAdapter;
+import com.lxqhmlwyh.qingtingfm.pojo.District;
 import com.lxqhmlwyh.qingtingfm.pojo.FMCardView;
 import com.lxqhmlwyh.qingtingfm.service.GetFMItemJsonService;
 import com.lxqhmlwyh.qingtingfm.service.InitDataService;
@@ -37,6 +39,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class SearchFragment extends Fragment {
 
@@ -48,6 +52,8 @@ public class SearchFragment extends Fragment {
     private TextView tvProvince;
     private RelativeLayout maskLayout;
     private RecyclerView fmRecyclerView;
+    private JSONArray provinceData;
+    private SearchRecyclerViewAdapter adapter;
 
     @Nullable
     @Override
@@ -68,7 +74,6 @@ public class SearchFragment extends Fragment {
         maskLayout.setOnClickListener(onClickListener);
         view.findViewById(R.id.to_playing).setOnClickListener(onClickListener);
         swipeRefreshLayout.setEnabled(false);
-        fmRecyclerView.addOnScrollListener(scrollListener);
         /*swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -77,19 +82,6 @@ public class SearchFragment extends Fragment {
         });*/
         view.findViewById(R.id.choose_province).setOnClickListener(onClickListener);
     }
-
-    RecyclerView.OnScrollListener scrollListener=new RecyclerView.OnScrollListener() {
-        @Override
-        public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-            super.onScrollStateChanged(recyclerView, newState);
-        }
-
-        @Override
-        public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-            super.onScrolled(recyclerView, dx, dy);
-
-        }
-    };
 
     /**
      * 初始化dialog
@@ -101,7 +93,7 @@ public class SearchFragment extends Fragment {
         //popupWindow.setFocusable(true);
         provinceList = chooseDialog.findViewById(R.id.dialog_list_view);
         final List<String> provinces = new ArrayList<>();
-        JSONArray provinceData = InitDataService.getDistrict();
+        provinceData = InitDataService.getDistrict();
         if(provinceData==null){
             Toast.makeText(getActivity(), "获取地区数据失败", Toast.LENGTH_SHORT).show();
             return;
@@ -120,6 +112,17 @@ public class SearchFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 tvProvince.setText(provinces.get(i));
+                Intent intent=new Intent(getActivity(),GetFMItemJsonService.class);
+                try {
+                    JSONObject district=provinceData.getJSONObject(i);
+                    intent.putExtra("provinceId",district.getInt("id"));
+                    getActivity().startService(intent);
+                    //showFM();
+                    updateFM();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 dismissDialog();
             }
         });
@@ -133,10 +136,24 @@ public class SearchFragment extends Fragment {
         Gson gson=new Gson();
         List<FMCardView> list=
                 gson.fromJson(fmItemJson.toString(), new TypeToken<List<FMCardView>>(){}.getType());
-        SearchRecyclerViewAdapter adapter=new SearchRecyclerViewAdapter(getActivity(),list);
+        adapter=new SearchRecyclerViewAdapter(getActivity(),list);
         GridLayoutManager manager=new GridLayoutManager(getActivity(),3);
         fmRecyclerView.setLayoutManager(manager);
         fmRecyclerView.setAdapter(adapter);
+    }
+
+    private void updateFM(){
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.upData();
+                    }
+                });
+            }
+        },1000);
 
     }
 
@@ -145,15 +162,10 @@ public class SearchFragment extends Fragment {
      */
     private void showChooseProvinceWindow() {
         if (popupWindow.isShowing()) return;
-        /*((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE))
-                .hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);*/
-        //backgroundAlpha(0.5f);
         maskLayout.setVisibility(View.VISIBLE);
         maskLayout.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.anim_choose_dialog_mask_after));
         popupWindow.setWidth(view.getLayoutParams().width);
         popupWindow.setHeight(view.getHeight() / 2);
-        //popupWindow.setAnimationStyle(R.style.pop_animation);
-        //popupWindow.showAtLocation(maskLayout, Gravity.BOTTOM, 0, 0);
         popupWindow.showAsDropDown(view);
         chooseDialog.findViewById(R.id.close_choose_dialog).setOnClickListener(new View.OnClickListener() {
             @Override
