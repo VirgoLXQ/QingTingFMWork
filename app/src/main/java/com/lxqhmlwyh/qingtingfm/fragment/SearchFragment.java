@@ -1,6 +1,7 @@
 package com.lxqhmlwyh.qingtingfm.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lxqhmlwyh.qingtingfm.R;
+import com.lxqhmlwyh.qingtingfm.activity.PlayActivity;
 import com.lxqhmlwyh.qingtingfm.adapter.SearchRecyclerViewAdapter;
 import com.lxqhmlwyh.qingtingfm.pojo.FMCardView;
 import com.lxqhmlwyh.qingtingfm.service.GetFMItemJsonService;
@@ -64,6 +66,7 @@ public class SearchFragment extends Fragment {
         fmRecyclerView=view.findViewById(R.id.fm_recycler_view);
         maskLayout = view.findViewById(R.id.fragment_search_mask);
         maskLayout.setOnClickListener(onClickListener);
+        view.findViewById(R.id.to_playing).setOnClickListener(onClickListener);
         swipeRefreshLayout.setEnabled(false);
         fmRecyclerView.addOnScrollListener(scrollListener);
         /*swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -171,6 +174,8 @@ public class SearchFragment extends Fragment {
                 case R.id.choose_province:
                     showChooseProvinceWindow();
                     break;
+                case R.id.to_playing:
+                    startActivity(new Intent(getActivity(), PlayActivity.class));
             }
         }
     };
