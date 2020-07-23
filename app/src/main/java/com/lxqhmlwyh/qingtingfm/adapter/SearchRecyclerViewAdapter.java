@@ -107,10 +107,10 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
     @Override
     public int getItemViewType(int position) {
         if (position==data.size()){
-            Log.e("getItemViewType()","true and position is "+position);
+            //Log.e("getItemViewType()","true and position is "+position);
             return 1;
         }else{
-            Log.e("getItemViewType()","false and position is "+position);
+            //Log.e("getItemViewType()","false and position is "+position);
             return 0;
         }
     }

@@ -137,6 +137,10 @@ public class SearchFragment extends Fragment {
      */
     private void showFM(){
         JSONArray fmItemJson= GetFMItemJsonService.getLastGetJson();
+        if (fmItemJson==null){
+            Toast.makeText(getActivity(), "获取电台数据失败", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Gson gson=new Gson();
         List<FMCardViewJson> list=
                 gson.fromJson(fmItemJson.toString(), new TypeToken<List<FMCardViewJson>>(){}.getType());

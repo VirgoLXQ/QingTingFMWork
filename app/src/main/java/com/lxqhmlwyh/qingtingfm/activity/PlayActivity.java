@@ -49,7 +49,7 @@ public class PlayActivity extends AppCompatActivity {
         titleView.setText(title);
         broadcasterView.setText(broadcaster);
         seekBar=findViewById(R.id.play_seek_bar);
-        seekBar.setProgress(DURATION);
+        seekBar.setMax(DURATION);
         toolbar.setNavigationIcon(R.mipmap.back_32);
         toolbar.setTitle(channelName);
         Glide.with(this).load(coverUrl)

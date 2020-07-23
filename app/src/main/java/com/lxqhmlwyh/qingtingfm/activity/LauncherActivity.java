@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lxqhmlwyh.qingtingfm.R;
 import com.lxqhmlwyh.qingtingfm.service.InitDataService;
@@ -22,6 +23,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.Random;
 
+import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 
@@ -107,8 +109,18 @@ public class LauncherActivity extends AppCompatActivity {
 
                 try {
                     int page=new Random().nextInt(10)+1;
-                    ResponseBody responseBody= CommonHttpRequest.getHttp("http://api.avatardata.cn/MingRenMingYan/LookUp?" +
-                            "key=82d0485323844626b580dbc43be57fd7&keyword=天才&page="+page+"&rows=1").body();
+                    Response response= CommonHttpRequest.getHttp("http://api.avatardata.cn/MingRenMingYan/LookUp?" +
+                            "key=82d0485323844626b580dbc43be57fd7&keyword=天才&page="+page+"&rows=1");
+                    if (response==null){
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(LauncherActivity.this, "网络异常", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        return;
+                    }
+                    ResponseBody responseBody=response.body();
                     JSONObject jsonObject = new JSONObject(responseBody.string());
                     JSONArray resultArray=jsonObject.getJSONArray("result");
                     JSONObject resultObj=resultArray.getJSONObject(0);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:title="专辑"
+        android:title="电台"
         android:id="@+id/nav_menu_album"
         android:icon="@mipmap/nav_album"/>
 

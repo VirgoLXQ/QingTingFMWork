@@ -16,8 +16,13 @@ import com.lxqhmlwyh.qingtingfm.R;
 import com.lxqhmlwyh.qingtingfm.activity.PlayActivity;
 import com.lxqhmlwyh.qingtingfm.activity.PlayListActivity;
 import com.lxqhmlwyh.qingtingfm.pojo.Broadcasters;
+import com.lxqhmlwyh.qingtingfm.pojo.PlayingList;
 import com.lxqhmlwyh.qingtingfm.pojo.ProgramItemEntity;
+import com.lxqhmlwyh.qingtingfm.service.PlayService;
+import com.lxqhmlwyh.qingtingfm.utils.MyPlayer;
+import com.lxqhmlwyh.qingtingfm.utils.MyTime;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ProgramItem> {
@@ -39,7 +44,7 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ProgramI
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProgramItem holder, int position) {
+    public void onBindViewHolder(@NonNull ProgramItem holder, final int position) {
         final ProgramItemEntity entity=programs.get(position);
         holder.countView.setText("2345");
         List<Broadcasters>broadcasters=entity.getBroadcasters();
@@ -64,6 +69,26 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ProgramI
                 intent.putExtra("start_time",entity.getStart_time());
                 intent.putExtra("end_time",entity.getEnd_time());
                 intent.putExtra("duration",entity.getDuration());
+
+                List<PlayingList> playingList=new ArrayList<>();
+                for(ProgramItemEntity itemEntity:programs){
+                    PlayingList playingItem=new PlayingList();
+                    String host="";
+                    for (Broadcasters hostObj:itemEntity.getBroadcasters()){
+                        host=host+"  "+hostObj.getUsername();
+                    }
+                    playingItem.setBroadcasters(host);
+                    playingItem.setChannelId(((PlayListActivity)context).channelId);
+                    playingItem.setPlayUrl(itemEntity.getStart_time());
+                    playingItem.setEndTime(itemEntity.getEnd_time());
+                    String playUrl=MyTime.changeToPlayUrl(((PlayListActivity)context).channelId,
+                            itemEntity.getStart_time(),itemEntity.getEnd_time());
+                    playingItem.setPlayUrl(playUrl);
+                    playingItem.setProgramName(itemEntity.getTitle());
+                    playingList.add(playingItem);
+                }
+                PlayService.setPlayingList(playingList);
+                context.startService(new Intent(context, PlayService.class));
                 context.startActivity(intent);
             }
         });

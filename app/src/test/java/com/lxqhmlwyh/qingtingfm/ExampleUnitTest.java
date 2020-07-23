@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lxqhmlwyh.qingtingfm.pojo.FMCardViewJson;
 import com.lxqhmlwyh.qingtingfm.utils.CommonHttpRequest;
+import com.lxqhmlwyh.qingtingfm.utils.MyTime;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,6 +52,17 @@ public class ExampleUnitTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    @Test
+    public void getDateTest(){
+        System.out.println(MyTime.getDate());
+    }
+
+    @Test
+    public void getPlayUrlTest(){
+        String url=
+        MyTime.changeToPlayUrl(4875,"12:00:00","13:00:00");
+        System.out.println(url);
     }
 }
