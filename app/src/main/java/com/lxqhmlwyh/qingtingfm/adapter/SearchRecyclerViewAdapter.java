@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,12 +70,14 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
                 @Override
                 public void onClick(View view) {
                     //Toast.makeText(context, fmCardView.getDescription(), Toast.LENGTH_SHORT).show();
-                    Intent toPlay=new Intent(context, PlayListActivity.class);
-                    toPlay.putExtra("previous",fmCardView.getRegion().getTitle());
-                    toPlay.putExtra("channel",fmCardView.getTitle());
-                    toPlay.putExtra("channel_id",fmCardView.getContent_id());
-                    context.startActivity(toPlay);
-                    context.startService(new Intent(context, PlayService.class));
+                    Intent toPlayList=new Intent(context, PlayListActivity.class);
+                    toPlayList.putExtra("cover",fmCardView.getCover());
+                    toPlayList.putExtra("channelName",fmCardView.getTitle());
+                    toPlayList.putExtra("previous",fmCardView.getRegion().getTitle());
+                    toPlayList.putExtra("channel",fmCardView.getTitle());
+                    toPlayList.putExtra("channel_id",fmCardView.getContent_id());
+                    context.startActivity(toPlayList);
+                    //context.startService(new Intent(context, PlayService.class));
                 }
             });
             ((CardViewHolder) holder).favorImg.setOnClickListener(new View.OnClickListener() {

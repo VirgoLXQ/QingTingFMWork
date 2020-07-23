@@ -8,6 +8,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +17,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lxqhmlwyh.qingtingfm.R;
 import com.lxqhmlwyh.qingtingfm.adapter.ProgramAdapter;
+import com.lxqhmlwyh.qingtingfm.adapter.ProgramItemDecoration;
 import com.lxqhmlwyh.qingtingfm.pojo.ProgramItemEntity;
 import com.lxqhmlwyh.qingtingfm.utils.CommonHttpRequest;
 import com.lxqhmlwyh.qingtingfm.utils.MyTime;
@@ -39,6 +41,8 @@ public class PlayListActivity extends AppCompatActivity {
     private TextView tvChannel;
     private RecyclerView recyclerView;
     private List<ProgramItemEntity> entities;
+    public String cover;
+    public String channelName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,11 +62,14 @@ public class PlayListActivity extends AppCompatActivity {
     }
 
     private void initData(){
+        cover=getIntent().getStringExtra("cover");
+        channelName=getIntent().getStringExtra("channelName");
         int channel_id=getIntent().getIntExtra("channel_id",4875);
         final int dayOFWeek= MyTime.dayOFWeek();
         final String baseUrl="https://rapi.qingting.fm/v2/channels/"+channel_id+"/playbills?day="+dayOFWeek;
         final AlertDialog loadingDialog=new AlertDialog.Builder(PlayListActivity.this).create();
-        loadingDialog.setContentView(R.layout.loading_dialog);
+        View loadView=View.inflate(this,R.layout.loading_dialog,null);
+        loadingDialog.setView(loadView);
         loadingDialog.show();
         CommonHttpRequest.getHttp(baseUrl, new Callback() {
             @Override
@@ -71,6 +78,7 @@ public class PlayListActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Toast.makeText(PlayListActivity.this, "获取电台数据失败", Toast.LENGTH_SHORT).show();
+                        loadingDialog.dismiss();
                     }
                 });
 
@@ -106,9 +114,10 @@ public class PlayListActivity extends AppCompatActivity {
     }
 
     private void showPlayList(){
-        ProgramAdapter programAdapter=new ProgramAdapter(entities);
+        ProgramAdapter programAdapter=new ProgramAdapter(this,entities);
         LinearLayoutManager manager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
+        recyclerView.addItemDecoration(new ProgramItemDecoration());
         recyclerView.setAdapter(programAdapter);
     }
 

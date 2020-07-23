@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +56,7 @@ public class SearchFragment extends Fragment {
     private RecyclerView fmRecyclerView;
     private JSONArray provinceData;
     private SearchRecyclerViewAdapter adapter;
+    private SearchView searchView;
 
     @Nullable
     @Override
@@ -72,6 +74,7 @@ public class SearchFragment extends Fragment {
         tvProvince = view.findViewById(R.id.tv_province);
         fmRecyclerView=view.findViewById(R.id.fm_recycler_view);
         maskLayout = view.findViewById(R.id.fragment_search_mask);
+        searchView=view.findViewById(R.id.search_view);
         maskLayout.setOnClickListener(onClickListener);
         view.findViewById(R.id.to_playing).setOnClickListener(onClickListener);
         swipeRefreshLayout.setEnabled(false);
