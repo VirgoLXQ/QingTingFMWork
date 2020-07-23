@@ -21,6 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="电台收藏"
+            android:id="@+id/play_list_previous"
             android:layout_centerVertical="true"
             android:textColor="@color/font_white"
             android:layout_toRightOf="@id/play_list_back"
@@ -31,12 +32,14 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:textColor="@color/font_white"
+            android:id="@+id/play_list_channel_title"
             android:textSize="22sp"
             android:text="电台标题"/>
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
+        android:id="@+id/play_list_program"
         android:layout_height="match_parent"/>
 
 </LinearLayout>

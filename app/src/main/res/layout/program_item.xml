@@ -8,7 +8,6 @@
     android:elevation="10dp">
 
     <RelativeLayout
-        android:background="@drawable/program_playing_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/program_inner_relative"
@@ -49,7 +48,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/program_date"
+            android:id="@+id/program_duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/program_host"

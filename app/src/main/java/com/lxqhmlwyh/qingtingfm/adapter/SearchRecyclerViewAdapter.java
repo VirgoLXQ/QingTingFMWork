@@ -2,7 +2,6 @@ package com.lxqhmlwyh.qingtingfm.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,8 +21,7 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lxqhmlwyh.qingtingfm.R;
-import com.lxqhmlwyh.qingtingfm.activity.PlayActivity;
-import com.lxqhmlwyh.qingtingfm.pojo.FMCardView;
+import com.lxqhmlwyh.qingtingfm.activity.PlayListActivity;
 import com.lxqhmlwyh.qingtingfm.pojo.FMCardViewJson;
 import com.lxqhmlwyh.qingtingfm.service.GetFMItemJsonService;
 import com.lxqhmlwyh.qingtingfm.service.PlayService;
@@ -71,9 +69,10 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
                 @Override
                 public void onClick(View view) {
                     //Toast.makeText(context, fmCardView.getDescription(), Toast.LENGTH_SHORT).show();
-                    Intent toPlay=new Intent(context,PlayActivity.class);
-                    toPlay.putExtra("channelName",fmCardView.getTitle());
-                    toPlay.putExtra("cover",fmCardView.getCover());
+                    Intent toPlay=new Intent(context, PlayListActivity.class);
+                    toPlay.putExtra("previous",fmCardView.getRegion().getTitle());
+                    toPlay.putExtra("channel",fmCardView.getTitle());
+                    toPlay.putExtra("channel_id",fmCardView.getContent_id());
                     context.startActivity(toPlay);
                     context.startService(new Intent(context, PlayService.class));
                 }
