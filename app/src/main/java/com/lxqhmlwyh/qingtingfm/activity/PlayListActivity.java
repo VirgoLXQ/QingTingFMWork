@@ -41,6 +41,9 @@ public class PlayListActivity extends AppCompatActivity {
     public String cover;
     public String channelName;
     public int channelId;
+    public int programId;
+    public int count;
+    public String startTime;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,7 +63,10 @@ public class PlayListActivity extends AppCompatActivity {
     }
 
     private void initData(){
+        startTime=getIntent().getStringExtra("startTime");
         cover=getIntent().getStringExtra("cover");
+        count=getIntent().getIntExtra("count",0);
+        programId=getIntent().getIntExtra("programId",0);
         channelName=getIntent().getStringExtra("channelName");
         channelId=getIntent().getIntExtra("channel_id",4875);
         final int dayOFWeek= MyTime.dayOFWeek();
@@ -92,9 +98,7 @@ public class PlayListActivity extends AppCompatActivity {
                     Gson gson=new Gson();
                     entities=
                             gson.fromJson(dayJson.toString(),new TypeToken<List<ProgramItemEntity>>(){}.getType());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
+                } catch (JSONException | IOException e) {
                     e.printStackTrace();
                 }
                 runOnUiThread(new Runnable() {

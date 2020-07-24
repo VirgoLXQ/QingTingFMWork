@@ -73,9 +73,12 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
                     Intent toPlayList=new Intent(context, PlayListActivity.class);
                     toPlayList.putExtra("cover",fmCardView.getCover());
                     toPlayList.putExtra("channelName",fmCardView.getTitle());
+                    toPlayList.putExtra("startTime",fmCardView.getNowplaying().getStart_time());
+                    toPlayList.putExtra("programId",fmCardView.getNowplaying().getId());
                     toPlayList.putExtra("previous",fmCardView.getRegion().getTitle());
                     toPlayList.putExtra("channel",fmCardView.getTitle());
                     toPlayList.putExtra("channel_id",fmCardView.getContent_id());
+                    toPlayList.putExtra("count",fmCardView.getAudience_count());
                     context.startActivity(toPlayList);
                     //context.startService(new Intent(context, PlayService.class));
                 }

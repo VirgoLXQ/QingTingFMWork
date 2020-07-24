@@ -3,13 +3,13 @@ package com.lxqhmlwyh.qingtingfm.service;
 import android.app.IntentService;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
 import com.lxqhmlwyh.qingtingfm.pojo.PlayingList;
 import com.lxqhmlwyh.qingtingfm.utils.MyPlayer;
 
-import java.io.IOException;
 import java.util.List;
 
 public class PlayService extends IntentService {
@@ -31,7 +31,26 @@ public class PlayService extends IntentService {
     protected void onHandleIntent(@Nullable Intent intent) {
         if (IS_SERVICING)return;
         myPlayer=new MyPlayer();
-        myPlayer.playUrl(PLAYING_LIST.get(0).getPlayUrl());
+        myPlayer.playUrl(PLAYING_LIST.get(intent.getIntExtra("startIndex",0)).getPlayUrl());
+
+    }
+
+    @Override
+    public void onStart(@Nullable Intent intent, int startId) {
+        super.onStart(intent, startId);
+        IS_SERVICING=false;
+        if (myPlayer!=null){
+            myPlayer.stop();
+            myPlayer=null;
+        }
+
+        Log.e("PlayService","播放服务开启");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.e("PlayService","播放服务结束");
     }
 
     public static void setPlayingList(List<PlayingList> playingList) {

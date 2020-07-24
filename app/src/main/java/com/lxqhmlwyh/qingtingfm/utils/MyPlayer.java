@@ -9,19 +9,22 @@ import java.io.IOException;
 
 public class MyPlayer {
     private MediaPlayer fmPlay;
-    private int currentIndex=0;
+    public static int currentIndex;
 
     public void playUrl(String url){
         fmPlay=new MediaPlayer();
         try {
             fmPlay.setDataSource(url);
             Log.e("MyPlayer",url);
+            //fmPlay.start();
+            fmPlay.setOnPreparedListener(onPreparedListener);
             fmPlay.prepare();
-            fmPlay.start();
+            fmPlay.setOnErrorListener(errorListener);
             PlayService.IS_SERVICING=true;
             fmPlay.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
+                    Log.e("MyPlayer","播放结束，下一曲");
                     if (hasNext()){
                         currentIndex++;
                         playUrl(PlayService.getPlayingList().get(currentIndex).getPlayUrl());
@@ -33,6 +36,7 @@ public class MyPlayer {
             });
         } catch (IOException e) {
             e.printStackTrace();
+            Log.e("MyPlayer",e.getMessage());
         }
     }
 
@@ -68,4 +72,21 @@ public class MyPlayer {
             return true;
         }
     }
+
+    private MediaPlayer.OnErrorListener errorListener=new MediaPlayer.OnErrorListener() {
+        @Override
+        public boolean onError(MediaPlayer mediaPlayer, int i, int i1) {
+            Log.e("MyPlayer","播放错误：");
+            return false;
+        }
+    };
+
+    private MediaPlayer.OnPreparedListener onPreparedListener=new MediaPlayer.OnPreparedListener() {
+        @Override
+        public void onPrepared(MediaPlayer mediaPlayer) {
+            fmPlay.start();
+            Log.e("MyPlayer","加载媒体流完毕，开始播放");
+        }
+    };
+
 }

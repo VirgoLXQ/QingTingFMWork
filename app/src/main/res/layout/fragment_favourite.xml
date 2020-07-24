@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Toolbar
+        android:layout_width="match_parent"
+        android:elevation="10dp"
+        android:id="@+id/favor_toolbar"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/material_red"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/favor_toolbar"
+        android:id="@+id/favor_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

@@ -76,7 +76,6 @@ public class SearchFragment extends Fragment {
         maskLayout = view.findViewById(R.id.fragment_search_mask);
         searchView=view.findViewById(R.id.search_view);
         maskLayout.setOnClickListener(onClickListener);
-        view.findViewById(R.id.to_playing).setOnClickListener(onClickListener);
         swipeRefreshLayout.setEnabled(false);
         /*swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -194,8 +193,6 @@ public class SearchFragment extends Fragment {
                 case R.id.choose_province:
                     showChooseProvinceWindow();
                     break;
-                case R.id.to_playing:
-                    startActivity(new Intent(getActivity(), PlayActivity.class));
             }
         }
     };

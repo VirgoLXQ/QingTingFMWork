@@ -18,7 +18,7 @@
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
         android:paddingRight="5dp"
-        android:background="@drawable/program_item_current_playing"
+        android:background="@drawable/program_item_normal_style"
         android:id="@+id/program_inner_relative">
 
         <TextView
@@ -69,13 +69,15 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="5dp"
-            android:text="123" />
+            android:text="" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@id/program_count"
             android:backgroundTint="@color/colorAccent"
+            android:visibility="gone"
+            android:id="@+id/program_count_img"
             android:src="@mipmap/earphone_e" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

@@ -2,11 +2,14 @@ package com.lxqhmlwyh.qingtingfm.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -46,7 +49,7 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ProgramI
     @Override
     public void onBindViewHolder(@NonNull ProgramItem holder, final int position) {
         final ProgramItemEntity entity=programs.get(position);
-        holder.countView.setText("2345");
+        //holder.countView.setText("2345");
         List<Broadcasters>broadcasters=entity.getBroadcasters();
         String host="";
         for (Broadcasters hostObj:broadcasters){
@@ -56,6 +59,22 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ProgramI
         holder.stateImg.setImageResource(R.mipmap.sound_wait);
         holder.titleView.setText(entity.getTitle());
         holder.durationView.setText("["+entity.getStart_time()+"-"+entity.getEnd_time()+"]");
+
+        //寻找正在播放的节目
+        int temp=((PlayListActivity)context).programId;
+        String startTime=((PlayListActivity)context).startTime;
+        if (entity.getProgram_id()==temp&&entity.getStart_time().equals(startTime)){
+            //已找到正在播放的节目
+            Log.e("ProgramAdapter","context.programId="+temp+"; entity="+entity.getProgram_id());
+            holder.countView.setText(((PlayListActivity)context).count+"");
+            holder.countImg.setVisibility(View.VISIBLE);
+            holder.countView.setVisibility(View.VISIBLE);
+            holder.relativeLayout.setBackground(context.getDrawable(R.drawable.program_item_current_living));
+        }else{//因为出现了奇怪的问题，所以添加了else分支
+            holder.countImg.setVisibility(View.GONE);
+            holder.countView.setVisibility(View.GONE);
+            holder.relativeLayout.setBackground(context.getDrawable(R.drawable.program_item_normal_style));
+        }
 
         final String finalHost = host;
         holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -87,8 +106,11 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ProgramI
                     playingItem.setProgramName(itemEntity.getTitle());
                     playingList.add(playingItem);
                 }
+                MyPlayer.currentIndex=position;
                 PlayService.setPlayingList(playingList);
-                context.startService(new Intent(context, PlayService.class));
+                Intent serIntent=new Intent(context, PlayService.class);
+                serIntent.putExtra("startIndex",position);
+                context.startService(serIntent);
                 context.startActivity(intent);
             }
         });
@@ -107,6 +129,8 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ProgramI
         TextView countView;
         TextView durationView;
         CardView cardView;
+        ImageView countImg;
+        RelativeLayout relativeLayout;
 
         public ProgramItem(@NonNull View itemView) {
             super(itemView);
@@ -116,6 +140,8 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ProgramI
             countView=itemView.findViewById(R.id.program_count);
             durationView=itemView.findViewById(R.id.program_duration);
             cardView=itemView.findViewById(R.id.play_list_item);
+            countImg=itemView.findViewById(R.id.program_count_img);
+            relativeLayout=itemView.findViewById(R.id.program_inner_relative);
         }
     }
 }

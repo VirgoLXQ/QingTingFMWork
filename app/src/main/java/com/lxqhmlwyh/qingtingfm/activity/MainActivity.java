@@ -6,17 +6,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.lxqhmlwyh.qingtingfm.R;
+import com.lxqhmlwyh.qingtingfm.fragment.AnalyseFragment;
+import com.lxqhmlwyh.qingtingfm.fragment.FavouriteFragment;
 import com.lxqhmlwyh.qingtingfm.fragment.SearchFragment;
 import com.lxqhmlwyh.qingtingfm.service.GetFMItemJsonService;
 
 public class MainActivity extends AppCompatActivity {
 
     private SearchFragment searchFragment;
+    private FavouriteFragment favouriteFragment;
+    private AnalyseFragment analyseFragment;
     private BottomNavigationView bottomNav;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +33,17 @@ public class MainActivity extends AppCompatActivity {
     }
     private void initView(){
         searchFragment=new SearchFragment();
-
+        favouriteFragment=new FavouriteFragment();
+        analyseFragment=new AnalyseFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,favouriteFragment).commit();
         bottomNav=findViewById(R.id.main_bottom_nav);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
+        findViewById(R.id.to_playing).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, PlayActivity.class));
+            }
+        });
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener=new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -41,8 +54,10 @@ public class MainActivity extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,searchFragment).commit();
                     break;
                 case R.id.nav_menu_album:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,favouriteFragment).commit();
                     break;
                 case R.id.nav_menu_analyse:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,analyseFragment).commit();
                     break;
             }
             return true;
