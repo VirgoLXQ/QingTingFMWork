@@ -32,6 +32,7 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ProgramI
 
     private List<ProgramItemEntity> programs;
     private Context context;
+    private int livingItem;
 
     public ProgramAdapter(Context context,List<ProgramItemEntity> programs){
         this.programs=programs;
@@ -70,6 +71,7 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ProgramI
             holder.countImg.setVisibility(View.VISIBLE);
             holder.countView.setVisibility(View.VISIBLE);
             holder.relativeLayout.setBackground(context.getDrawable(R.drawable.program_item_current_living));
+            livingItem=position;
         }else{//因为出现了奇怪的问题，所以添加了else分支
             holder.countImg.setVisibility(View.GONE);
             holder.countView.setVisibility(View.GONE);
@@ -80,6 +82,12 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ProgramI
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if (position>livingItem){
+                    Toast.makeText(context, "节目还没开始", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 Intent intent=new Intent(context, PlayActivity.class);
                 intent.putExtra("channelName",((PlayListActivity)context).channelName);
                 intent.putExtra("cover",((PlayListActivity)context).cover);
