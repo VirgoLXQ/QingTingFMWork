@@ -8,19 +8,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lxqhmlwyh.qingtingfm.R;
+import com.lxqhmlwyh.qingtingfm.databaseutil.APPVisitTable;
 import com.lxqhmlwyh.qingtingfm.service.InitDataService;
 import com.lxqhmlwyh.qingtingfm.utils.CommonHttpRequest;
+import com.orm.SugarRecord;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.Random;
 
 import okhttp3.Response;
@@ -41,10 +47,51 @@ public class LauncherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(1024,1024);//隐藏系统状态栏
         setContentView(R.layout.activity_launcher);
+        updateVisit();
         initView();
         initData();
         getSaying();
         countDownTask();
+    }
+
+    /**
+     * 记录和更新app的访问次数
+     */
+    private void updateVisit(){
+        Iterator tables= APPVisitTable.findAll(APPVisitTable.class);
+        long nowTimeStamp=System.currentTimeMillis();//获取当前的时间戳
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTime(new Date(nowTimeStamp));
+        int nowYear=calendar.get(Calendar.YEAR);
+        int nowMoth=calendar.get(Calendar.MONTH)+1;
+        int nowDay=calendar.get(Calendar.DAY_OF_MONTH);
+
+        while(tables.hasNext()){
+            APPVisitTable tableObj=(APPVisitTable) tables.next();
+            Log.e("updateVisit",tableObj.toString());
+            long thisTimeStamp=tableObj.getTimeStamp();//获取数据库的时间戳
+            Calendar thisCalendar=Calendar.getInstance();
+            thisCalendar.setTime(new Date(thisTimeStamp));
+            int thisYear=calendar.get(Calendar.YEAR);
+            int thisMoth=calendar.get(Calendar.MONTH)+1;
+            int thisDay=calendar.get(Calendar.DAY_OF_MONTH);
+            if (thisDay==nowDay&&thisMoth==nowMoth&&thisYear==nowYear){//如果是同一天
+                Log.e("updateVisit","更新今天的访问次数");
+                int count=tableObj.getCount()+1;
+                SugarRecord sugarRecord=tableObj;
+                long id=sugarRecord.getId();
+                SugarRecord.executeQuery("update APP_VISIT_TABLE set count=? where id=?",count+"",id+"");
+                return;
+            }else{
+                continue;
+            }
+        }
+
+        APPVisitTable newData=new APPVisitTable();
+        newData.setCount(1);
+        newData.setTimeStamp(nowTimeStamp);
+        newData.save();
+        Log.e("updateVisit",newData.toString());
     }
 
     /**
