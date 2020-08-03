@@ -38,6 +38,10 @@ public class PlayListActivity extends AppCompatActivity {
     private TextView tvChannel;
     private RecyclerView recyclerView;
     private List<ProgramItemEntity> entities;
+
+    /**
+     * 临时数据，方便Intent发送
+     */
     public String cover;
     public String channelName;
     public int channelId;
@@ -75,6 +79,7 @@ public class PlayListActivity extends AppCompatActivity {
         View loadView=View.inflate(this,R.layout.loading_dialog,null);
         loadingDialog.setView(loadView);
         loadingDialog.show();
+        //获取电台数据
         CommonHttpRequest.getHttp(baseUrl, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

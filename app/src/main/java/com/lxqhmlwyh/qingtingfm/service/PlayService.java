@@ -12,6 +12,9 @@ import com.lxqhmlwyh.qingtingfm.utils.MyPlayer;
 
 import java.util.List;
 
+/**
+ * 用于在后台播放节目
+ */
 public class PlayService extends IntentService {
 
     public static boolean IS_SERVICING=false;

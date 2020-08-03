@@ -7,6 +7,10 @@ import com.lxqhmlwyh.qingtingfm.service.PlayService;
 
 import java.io.IOException;
 
+/**
+ * 播放器对象
+ */
+
 public class MyPlayer {
     private MediaPlayer fmPlay;
     public static int currentIndex;

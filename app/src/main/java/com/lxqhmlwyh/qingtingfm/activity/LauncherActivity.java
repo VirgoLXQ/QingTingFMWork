@@ -17,6 +17,7 @@ import com.lxqhmlwyh.qingtingfm.R;
 import com.lxqhmlwyh.qingtingfm.databaseutil.APPVisitTable;
 import com.lxqhmlwyh.qingtingfm.service.InitDataService;
 import com.lxqhmlwyh.qingtingfm.utils.CommonHttpRequest;
+import com.lxqhmlwyh.qingtingfm.utils.DataBaseUtil;
 import com.orm.SugarRecord;
 
 import org.json.JSONArray;
@@ -62,9 +63,6 @@ public class LauncherActivity extends AppCompatActivity {
         long nowTimeStamp=System.currentTimeMillis();//获取当前的时间戳
         Calendar calendar=Calendar.getInstance();
         calendar.setTime(new Date(nowTimeStamp));
-        int nowYear=calendar.get(Calendar.YEAR);
-        int nowMoth=calendar.get(Calendar.MONTH)+1;
-        int nowDay=calendar.get(Calendar.DAY_OF_MONTH);
 
         while(tables.hasNext()){
             APPVisitTable tableObj=(APPVisitTable) tables.next();
@@ -72,10 +70,7 @@ public class LauncherActivity extends AppCompatActivity {
             long thisTimeStamp=tableObj.getTimeStamp();//获取数据库的时间戳
             Calendar thisCalendar=Calendar.getInstance();
             thisCalendar.setTime(new Date(thisTimeStamp));
-            int thisYear=calendar.get(Calendar.YEAR);
-            int thisMoth=calendar.get(Calendar.MONTH)+1;
-            int thisDay=calendar.get(Calendar.DAY_OF_MONTH);
-            if (thisDay==nowDay&&thisMoth==nowMoth&&thisYear==nowYear){//如果是同一天
+            if (DataBaseUtil.isToday(calendar,thisCalendar)){//如果是同一天
                 Log.e("updateVisit","更新今天的访问次数");
                 int count=tableObj.getCount()+1;
                 SugarRecord sugarRecord=tableObj;

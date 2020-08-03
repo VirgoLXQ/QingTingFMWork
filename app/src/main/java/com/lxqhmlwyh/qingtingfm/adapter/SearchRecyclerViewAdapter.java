@@ -3,13 +3,11 @@ package com.lxqhmlwyh.qingtingfm.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +23,6 @@ import com.lxqhmlwyh.qingtingfm.R;
 import com.lxqhmlwyh.qingtingfm.activity.PlayListActivity;
 import com.lxqhmlwyh.qingtingfm.pojo.FMCardViewJson;
 import com.lxqhmlwyh.qingtingfm.service.GetFMItemJsonService;
-import com.lxqhmlwyh.qingtingfm.service.PlayService;
 
 import org.json.JSONArray;
 
@@ -66,6 +63,8 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
                     .into(((CardViewHolder) holder).coverImg);
             ((CardViewHolder) holder).favorImg.setImageResource(R.mipmap.heart_grey);
             //((CardViewHolder) holder).cardView.setTooltipText(fmCardView.getDescription());
+
+            //CardView的点击事件
             ((CardViewHolder) holder).cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -79,10 +78,13 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
                     toPlayList.putExtra("channel",fmCardView.getTitle());
                     toPlayList.putExtra("channel_id",fmCardView.getContent_id());
                     toPlayList.putExtra("count",fmCardView.getAudience_count());
+                    //跳转到节目列表界面
                     context.startActivity(toPlayList);
                     //context.startService(new Intent(context, PlayService.class));
                 }
             });
+
+            //收藏按钮的点击事件
             ((CardViewHolder) holder).favorImg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -98,11 +100,15 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         notifyDataSetChanged();
     }*/
 
+    /**
+     * 更新适配器里的data属性
+     */
     public void upData(){
         JSONArray array=GetFMItemJsonService.getLastGetJson();
         Gson gson=new Gson();
         List<FMCardViewJson> list=
                 gson.fromJson(array.toString(), new TypeToken<List<FMCardViewJson>>(){}.getType());
+        //更新适配器里的data属性
         this.data= list;
         notifyDataSetChanged();
     }
@@ -141,6 +147,9 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         }
     }
 
+    /**
+     * 加载ViewHolder
+     */
     public class FooterHolder extends RecyclerView.ViewHolder{
 
         ProgressBar progressBar;

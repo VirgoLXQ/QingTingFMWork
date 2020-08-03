@@ -3,13 +3,24 @@ package com.lxqhmlwyh.qingtingfm.utils;
 
 import java.util.Calendar;
 
+/**
+ * 时间工具
+ */
 public class MyTime {
     private static Calendar calendar=Calendar.getInstance();
 
+    /**
+     * 获取今天是星期几
+     * @return
+     */
     public static int dayOFWeek(){
         return calendar.get(Calendar.DAY_OF_WEEK);
     }
 
+    /**
+     * 获取今天是多少号
+     * @return
+     */
     public static String getDate(){
         int year=calendar.get(Calendar.YEAR);
         int monthInt=1+calendar.get(Calendar.MONTH);
@@ -19,6 +30,13 @@ public class MyTime {
         return ""+year+month+day;
     }
 
+    /**
+     * 用于拼接节目的播放地址
+     * @param channelId
+     * @param startTime
+     * @param endTime
+     * @return
+     */
     public static String changeToPlayUrl(int channelId,String startTime,String endTime){
         startTime=startTime.replace(":","");
         endTime=endTime.replace(":","");

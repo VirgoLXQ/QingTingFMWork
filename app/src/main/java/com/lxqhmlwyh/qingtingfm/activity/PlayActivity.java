@@ -22,6 +22,10 @@ public class PlayActivity extends AppCompatActivity {
     private TextView startTimeView;
     private TextView endTimeView;
     private SeekBar seekBar;
+
+    /**
+     * 用于记录数据
+     */
     private static String channelName;
     private static String coverUrl;
     private static String title;

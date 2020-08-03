@@ -16,6 +16,9 @@ import java.io.IOException;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
+/**
+ * 用于闪屏时下载数据
+ */
 public class InitDataService extends IntentService {
 
     //private static List<District> districts=new ArrayList<>();
