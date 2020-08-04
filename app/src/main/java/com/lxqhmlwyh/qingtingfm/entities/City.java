@@ -1,6 +1,6 @@
-package com.lxqhmlwyh.qingtingfm.pojo;
+package com.lxqhmlwyh.qingtingfm.entities;
 
-public class Region {
+public class City {
     private int id;
     private String title;
     private int status;

@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lxqhmlwyh.qingtingfm.R;
-import com.lxqhmlwyh.qingtingfm.databaseutil.APPVisitTable;
+import com.lxqhmlwyh.qingtingfm.databaseentities.APPVisitTable;
 import com.lxqhmlwyh.qingtingfm.service.InitDataService;
 import com.lxqhmlwyh.qingtingfm.utils.CommonHttpRequest;
 import com.lxqhmlwyh.qingtingfm.utils.DataBaseUtil;

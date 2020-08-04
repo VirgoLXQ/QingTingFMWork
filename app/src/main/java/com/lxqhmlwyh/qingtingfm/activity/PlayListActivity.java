@@ -16,7 +16,7 @@ import com.google.gson.reflect.TypeToken;
 import com.lxqhmlwyh.qingtingfm.R;
 import com.lxqhmlwyh.qingtingfm.adapter.ProgramAdapter;
 import com.lxqhmlwyh.qingtingfm.adapter.ProgramItemDecoration;
-import com.lxqhmlwyh.qingtingfm.pojo.ProgramItemEntity;
+import com.lxqhmlwyh.qingtingfm.entities.ProgramItemEntity;
 import com.lxqhmlwyh.qingtingfm.utils.CommonHttpRequest;
 import com.lxqhmlwyh.qingtingfm.utils.MyTime;
 

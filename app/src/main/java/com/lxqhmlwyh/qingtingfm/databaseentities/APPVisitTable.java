@@ -1,4 +1,4 @@
-package com.lxqhmlwyh.qingtingfm.databaseutil;
+package com.lxqhmlwyh.qingtingfm.databaseentities;
 
 
 import com.orm.SugarRecord;

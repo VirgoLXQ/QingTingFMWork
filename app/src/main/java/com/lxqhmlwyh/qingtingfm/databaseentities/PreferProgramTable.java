@@ -1,20 +1,23 @@
-package com.lxqhmlwyh.qingtingfm.databaseutil;
+package com.lxqhmlwyh.qingtingfm.databaseentities;
 
 import com.orm.SugarRecord;
 
-public class PreferProgram extends SugarRecord {
+/**
+ * 最受欢迎的节目
+ */
+public class PreferProgramTable extends SugarRecord {
 
-    private int channelId;
+    private int programId;
     private String programName;
     private int count;
     private long timeStamp;
 
-    public int getChannelId() {
-        return channelId;
+    public void setProgramId(int programId) {
+        this.programId = programId;
     }
 
-    public void setChannelId(int channelId) {
-        this.channelId = channelId;
+    public int getProgramId() {
+        return programId;
     }
 
     public String getProgramName() {
@@ -39,6 +42,16 @@ public class PreferProgram extends SugarRecord {
 
     public void setTimeStamp(long timeStamp) {
         this.timeStamp = timeStamp;
+    }
+
+    @Override
+    public String toString() {
+        return "PreferProgramTable{" +
+                "programId=" + programId +
+                ", programName='" + programName + '\'' +
+                ", count=" + count +
+                ", timeStamp=" + timeStamp +
+                '}';
     }
 
     @Override

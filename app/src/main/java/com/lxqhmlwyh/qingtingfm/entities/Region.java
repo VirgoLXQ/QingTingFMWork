@@ -1,6 +1,6 @@
-package com.lxqhmlwyh.qingtingfm.pojo;
+package com.lxqhmlwyh.qingtingfm.entities;
 
-public class Categories {
+public class Region {
     private int id;
     private String title;
     private int status;

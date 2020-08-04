@@ -3,7 +3,6 @@ package com.lxqhmlwyh.qingtingfm.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,11 +26,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lxqhmlwyh.qingtingfm.R;
-import com.lxqhmlwyh.qingtingfm.activity.PlayActivity;
 import com.lxqhmlwyh.qingtingfm.adapter.SearchRecyclerViewAdapter;
-import com.lxqhmlwyh.qingtingfm.pojo.District;
-import com.lxqhmlwyh.qingtingfm.pojo.FMCardView;
-import com.lxqhmlwyh.qingtingfm.pojo.FMCardViewJson;
+import com.lxqhmlwyh.qingtingfm.entities.FMCardViewJson;
 import com.lxqhmlwyh.qingtingfm.service.GetFMItemJsonService;
 import com.lxqhmlwyh.qingtingfm.service.InitDataService;
 

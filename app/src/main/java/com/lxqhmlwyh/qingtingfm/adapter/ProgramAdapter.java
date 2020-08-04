@@ -18,14 +18,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.lxqhmlwyh.qingtingfm.R;
 import com.lxqhmlwyh.qingtingfm.activity.PlayActivity;
 import com.lxqhmlwyh.qingtingfm.activity.PlayListActivity;
-import com.lxqhmlwyh.qingtingfm.pojo.Broadcasters;
-import com.lxqhmlwyh.qingtingfm.pojo.PlayingList;
-import com.lxqhmlwyh.qingtingfm.pojo.ProgramItemEntity;
+import com.lxqhmlwyh.qingtingfm.databaseentities.PreferProgramTable;
+import com.lxqhmlwyh.qingtingfm.entities.Broadcasters;
+import com.lxqhmlwyh.qingtingfm.entities.PlayingList;
+import com.lxqhmlwyh.qingtingfm.entities.ProgramItemEntity;
 import com.lxqhmlwyh.qingtingfm.service.PlayService;
+import com.lxqhmlwyh.qingtingfm.utils.DataBaseUtil;
 import com.lxqhmlwyh.qingtingfm.utils.MyPlayer;
 import com.lxqhmlwyh.qingtingfm.utils.MyTime;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ProgramItem> {
@@ -105,6 +110,8 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ProgramI
                 intent.putExtra("end_time",entity.getEnd_time());
                 intent.putExtra("duration",entity.getDuration());
 
+                updateProgramTable(entity.getProgram_id(),entity.getTitle());
+
                 //定义播放列表
                 List<PlayingList> playingList=new ArrayList<>();
                 for(ProgramItemEntity itemEntity:programs){
@@ -135,6 +142,50 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ProgramI
                 context.startActivity(intent);
             }
         });
+    }
+
+    /**
+     * 更新数据，当点击列表项后，调用这个方法
+     */
+    private void updateProgramTable(int programId,String programName){
+        long nowTimeStamp=System.currentTimeMillis();
+        Calendar nowCalendar=Calendar.getInstance();
+        nowCalendar.setTime(new Date(nowTimeStamp));
+        Iterator records=PreferProgramTable.findAll(PreferProgramTable.class);
+        while(records.hasNext()){
+            PreferProgramTable thisRecord=(PreferProgramTable) records.next();
+            //Log.e("updateProgramTable",thisRecord.toString());
+            long thisTimeStamp=thisRecord.getTimeStamp();
+            Calendar thisCalendar=Calendar.getInstance();
+            thisCalendar.setTime(new Date(thisTimeStamp));
+            //先判断这一行记录是否是今天产生的
+            if (DataBaseUtil.isToday(nowCalendar,thisCalendar)){
+                int thisProgramId=thisRecord.getProgramId();
+                String thisProgramName=thisRecord.getProgramName();
+                //再判断这个节目的id和节目名是否和点击的节目一致
+               if (programId==thisProgramId&&programName.equals(thisProgramName)){
+                   //找到目标记录后，根据这条记录的id更新数据
+                   long thisId=thisRecord.getId();
+                   int updateCount=thisRecord.getCount();
+                   PreferProgramTable.executeQuery("update Prefer_Program_Table set count=? where id=?",
+                           updateCount+1+"",thisId+"");
+                   Log.e("updateProgramTable","更新了今天这个节目的点击次数");
+                    return;
+                }else{
+                   continue;
+               }
+            }
+        }
+
+        //如果找不到当天的记录，那么就新增一条
+        PreferProgramTable newRecord=new PreferProgramTable();
+        newRecord.setProgramId(programId);
+        newRecord.setCount(1);
+        newRecord.setProgramName(programName);
+        newRecord.setTimeStamp(nowTimeStamp);
+        newRecord.save();
+        Log.e("updateProgramTable",newRecord.toString());
+        Log.e("updateProgramTable","新增一条记录");
     }
 
     @Override

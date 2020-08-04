@@ -1,4 +1,4 @@
-package com.lxqhmlwyh.qingtingfm.pojo;
+package com.lxqhmlwyh.qingtingfm.entities;
 
 import java.util.List;
 

@@ -4,7 +4,7 @@ package com.lxqhmlwyh.qingtingfm;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.lxqhmlwyh.qingtingfm.pojo.FMCardViewJson;
+import com.lxqhmlwyh.qingtingfm.entities.FMCardViewJson;
 import com.lxqhmlwyh.qingtingfm.utils.CommonHttpRequest;
 import com.lxqhmlwyh.qingtingfm.utils.MyTime;
 

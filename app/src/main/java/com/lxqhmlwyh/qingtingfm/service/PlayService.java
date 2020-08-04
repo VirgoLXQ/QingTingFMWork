@@ -2,12 +2,11 @@ package com.lxqhmlwyh.qingtingfm.service;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import com.lxqhmlwyh.qingtingfm.pojo.PlayingList;
+import com.lxqhmlwyh.qingtingfm.entities.PlayingList;
 import com.lxqhmlwyh.qingtingfm.utils.MyPlayer;
 
 import java.util.List;

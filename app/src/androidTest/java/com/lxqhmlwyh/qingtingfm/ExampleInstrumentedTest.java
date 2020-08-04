@@ -8,8 +8,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.lxqhmlwyh.qingtingfm.pojo.Broadcasters;
-import com.lxqhmlwyh.qingtingfm.pojo.FMCardViewJson;
+import com.lxqhmlwyh.qingtingfm.entities.Broadcasters;
+import com.lxqhmlwyh.qingtingfm.entities.FMCardViewJson;
 import com.lxqhmlwyh.qingtingfm.utils.CommonHttpRequest;
 
 import org.json.JSONArray;
