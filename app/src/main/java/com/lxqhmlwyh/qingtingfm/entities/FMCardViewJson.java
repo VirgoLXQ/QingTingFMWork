@@ -15,7 +15,7 @@ public class FMCardViewJson {
     private String liveshow_id;
     private String update_time;
 
-    private List<Categories> categories;
+    private List<Category> categories;
     private Region region;
     private City city;
 
@@ -91,11 +91,11 @@ public class FMCardViewJson {
         this.update_time = update_time;
     }
 
-    public List<Categories> getCategories() {
+    public List<Category> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<Categories> categories) {
+    public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
 

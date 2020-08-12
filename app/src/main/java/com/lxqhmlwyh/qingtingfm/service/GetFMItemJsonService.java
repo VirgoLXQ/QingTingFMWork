@@ -35,7 +35,7 @@ public class GetFMItemJsonService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        Log.e("GetFMItemJsonService","数据下载服务开始");
+        //Log.e("GetFMItemJsonService","数据下载服务开始");
         int provinceId=intent.getIntExtra("provinceId",239);
         int page=intent.getIntExtra("page",1);
         int pageSize=intent.getIntExtra("pageSize",18);
@@ -47,7 +47,7 @@ public class GetFMItemJsonService extends IntentService {
             JSONObject dataJson=new JSONObject(jsonData);
             JSONArray item=dataJson.getJSONObject("Data").getJSONArray("items");
             LAST_GET_JSON=item;
-            Log.e("获取结果",item.toString());
+            //Log.e("获取结果",item.toString());
 
             /*Gson gson=new Gson();
             List<FMCardView> list=

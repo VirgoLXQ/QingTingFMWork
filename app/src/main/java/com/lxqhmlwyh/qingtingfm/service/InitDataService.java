@@ -44,7 +44,7 @@ public class InitDataService extends IntentService {
     @Override
     public void onStart(@Nullable Intent intent, int startId) {
         super.onStart(intent, startId);
-        Log.e("InitDataService","开始下载数据");
+        //Log.e("InitDataService","开始下载数据");
     }
 
     /**
@@ -66,16 +66,16 @@ public class InitDataService extends IntentService {
             JSONObject data=new JSONObject(responseBody.string());
             JSONArray array=data.getJSONArray("Data");
             district=array;
-            Log.e("district",district.toString());
+            //Log.e("district",district.toString());
 
             JSONObject data2=new JSONObject(responseBody2.string());
             JSONArray array2=data2.getJSONArray("Data");
             categories=array2;
-            Log.e("categories",categories.toString());
+            //Log.e("categories",categories.toString());
 
             JSONObject data3=new JSONObject(responseBody3.string());
             userLocationInfo=data3.getJSONObject("data");
-            Log.e("userLocationInfo",userLocationInfo.toString());
+            //Log.e("userLocationInfo",userLocationInfo.toString());
 
         } catch (JSONException e) {
             e.printStackTrace();

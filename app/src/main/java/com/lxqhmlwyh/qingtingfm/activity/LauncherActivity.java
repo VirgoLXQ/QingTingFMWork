@@ -66,7 +66,7 @@ public class LauncherActivity extends AppCompatActivity {
 
         while(tables.hasNext()){
             APPVisitTable tableObj=(APPVisitTable) tables.next();
-            Log.e("updateVisit",tableObj.toString());
+            //Log.e("updateVisit",tableObj.toString());
             long thisTimeStamp=tableObj.getTimeStamp();//获取数据库的时间戳
             Calendar thisCalendar=Calendar.getInstance();
             thisCalendar.setTime(new Date(thisTimeStamp));
@@ -77,8 +77,6 @@ public class LauncherActivity extends AppCompatActivity {
                 long id=sugarRecord.getId();
                 SugarRecord.executeQuery("update APP_VISIT_TABLE set count=? where id=?",count+"",id+"");
                 return;
-            }else{
-                continue;
             }
         }
 

@@ -169,11 +169,9 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ProgramI
                    int updateCount=thisRecord.getCount();
                    PreferProgramTable.executeQuery("update Prefer_Program_Table set count=? where id=?",
                            updateCount+1+"",thisId+"");
-                   Log.e("updateProgramTable","更新了今天这个节目的点击次数");
+                   //Log.e("updateProgramTable","更新了今天这个节目的点击次数");
                     return;
-                }else{
-                   continue;
-               }
+                }
             }
         }
 
@@ -184,8 +182,7 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ProgramI
         newRecord.setProgramName(programName);
         newRecord.setTimeStamp(nowTimeStamp);
         newRecord.save();
-        Log.e("updateProgramTable",newRecord.toString());
-        Log.e("updateProgramTable","新增一条记录");
+        Log.e("updateProgramTable","新增一条记录--"+newRecord.toString());
     }
 
     @Override

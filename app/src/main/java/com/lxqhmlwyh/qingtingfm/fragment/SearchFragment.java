@@ -3,6 +3,7 @@ package com.lxqhmlwyh.qingtingfm.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,15 +28,22 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lxqhmlwyh.qingtingfm.R;
 import com.lxqhmlwyh.qingtingfm.adapter.SearchRecyclerViewAdapter;
+import com.lxqhmlwyh.qingtingfm.databaseentities.APPVisitTable;
+import com.lxqhmlwyh.qingtingfm.databaseentities.ProvinceKeyTable;
 import com.lxqhmlwyh.qingtingfm.entities.FMCardViewJson;
 import com.lxqhmlwyh.qingtingfm.service.GetFMItemJsonService;
 import com.lxqhmlwyh.qingtingfm.service.InitDataService;
+import com.lxqhmlwyh.qingtingfm.utils.DataBaseUtil;
+import com.orm.SugarRecord;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -108,6 +116,7 @@ public class SearchFragment extends Fragment {
         final ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, provinces);
         provinceList.setAdapter(adapter);
         provinceList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            //列表点击事件
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 tvProvince.setText(provinces.get(i));
@@ -115,6 +124,7 @@ public class SearchFragment extends Fragment {
                 try {
                     JSONObject district=provinceData.getJSONObject(i);
                     intent.putExtra("provinceId",district.getInt("id"));
+                    updateRecord(district.getString("title"));
                     getActivity().startService(intent);
                     //showFM();
                     updateFM();
@@ -126,6 +136,46 @@ public class SearchFragment extends Fragment {
             }
         });
     }
+
+    /**
+     * 更新数据
+     */
+    private void updateRecord(String provinceName){
+        //Toast.makeText(getActivity(), provinceName, Toast.LENGTH_SHORT).show();
+        Iterator tables= ProvinceKeyTable.findAll(ProvinceKeyTable.class);
+        long nowTimeStamp=System.currentTimeMillis();
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTime(new Date(nowTimeStamp));
+
+        while (tables.hasNext()){
+            ProvinceKeyTable tableObj= (ProvinceKeyTable) tables.next();
+            long thisTimeStamp=tableObj.getStamp();//获取数据库的时间戳
+            Calendar thisCalendar=Calendar.getInstance();
+            thisCalendar.setTime(new Date(thisTimeStamp));
+            if (DataBaseUtil.isToday(calendar,thisCalendar)){//如果是同一天
+                if (tableObj.getProvince().equals(provinceName)){
+                    Log.e("updateRecord","更新今天访问"+provinceName+"的次数");
+                    int count=tableObj.getCount()+1;
+                    SugarRecord sugarRecord=tableObj;
+                    long id=sugarRecord.getId();
+                    SugarRecord.executeQuery("update PROVINCE_KEY_TABLE set count=? where id=?",count+"",id+"");
+                    return;
+                }
+
+            }else{
+                continue;
+            }
+        }
+
+        ProvinceKeyTable table=new ProvinceKeyTable();
+        table.setCount(1);
+        table.setProvince(provinceName);
+        table.setStamp(nowTimeStamp);
+        table.save();
+        Log.e("updateRecord","增加一条地区记录----"+table.toString());
+
+    }
+
 
     /**
      * 显示FM
