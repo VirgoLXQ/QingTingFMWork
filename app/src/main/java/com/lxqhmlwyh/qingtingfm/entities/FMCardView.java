@@ -1,5 +1,8 @@
 package com.lxqhmlwyh.qingtingfm.entities;
 
+/**
+ * 搜索结果的Recycler item数据
+ */
 public class FMCardView {
     private int content_id;
     private String description;

@@ -24,6 +24,7 @@ import com.lxqhmlwyh.qingtingfm.R;
 import com.lxqhmlwyh.qingtingfm.activity.PlayListActivity;
 import com.lxqhmlwyh.qingtingfm.databaseentities.CategoriesRecordTable;
 import com.lxqhmlwyh.qingtingfm.databaseentities.ChannelRecordTable;
+import com.lxqhmlwyh.qingtingfm.databaseentities.FavouriteTable;
 import com.lxqhmlwyh.qingtingfm.entities.Category;
 import com.lxqhmlwyh.qingtingfm.entities.FMCardViewJson;
 import com.lxqhmlwyh.qingtingfm.service.GetFMItemJsonService;
@@ -68,7 +69,13 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
             ((CardViewHolder) holder).titleTextView.setText(fmCardView.getTitle());
             Glide.with(context).load(fmCardView.getCover())
                     .into(((CardViewHolder) holder).coverImg);
-            ((CardViewHolder) holder).favorImg.setImageResource(R.mipmap.heart_grey);
+
+            if (isFavorite(fmCardView.getContent_id(),fmCardView.getTitle())){
+                ((CardViewHolder) holder).favorImg.setImageResource(R.mipmap.heart_red);
+            }else{
+                ((CardViewHolder) holder).favorImg.setImageResource(R.mipmap.heart_grey);
+            }
+
             //((CardViewHolder) holder).cardView.setTooltipText(fmCardView.getDescription());
 
             //CardView的点击事件
@@ -100,8 +107,15 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
             ((CardViewHolder) holder).favorImg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(context, "你收藏了这个电台", Toast.LENGTH_SHORT).show();
-                    ((CardViewHolder) holder).favorImg.setImageResource(R.mipmap.heart_red);
+                    if (isFavorite(fmCardView.getContent_id(),fmCardView.getTitle())){
+                        Toast.makeText(context, "你取消收藏了这个电台", Toast.LENGTH_SHORT).show();
+                        ((CardViewHolder) holder).favorImg.setImageResource(R.mipmap.heart_grey);
+                        updateFavourite(fmCardView.getContent_id(),fmCardView.getTitle(),fmCardView.getCover(),false);
+                    }else{
+                        updateFavourite(fmCardView.getContent_id(),fmCardView.getTitle(),fmCardView.getCover(),true);
+                        Toast.makeText(context, "你收藏了这个电台", Toast.LENGTH_SHORT).show();
+                        ((CardViewHolder) holder).favorImg.setImageResource(R.mipmap.heart_red);
+                    }
                 }
             });
         }
@@ -111,6 +125,39 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         this.data=data;
         notifyDataSetChanged();
     }*/
+
+    /**
+     * 判断这个电台是否收藏了
+     * @return
+     */
+    private boolean isFavorite(int channelId,String title){
+        List<FavouriteTable> tables=
+        SugarRecord.findWithQuery(FavouriteTable.class,"select * from FAVOURITE_TABLE where channelId=? " +
+                "and title=?",channelId+"",title);
+        if (tables.size()==0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    /**
+     * 更新收藏数据
+     */
+    private void updateFavourite(int channelId,String title,String imgUrl,boolean flag){
+        if (flag){//true：添加收藏
+            FavouriteTable table=new FavouriteTable();
+            table.setChannel_id(channelId);
+            table.setImgUrl(imgUrl);
+            table.setTitle(title);
+            table.save();
+            Log.e("updateFavourite","添加了一条数据——"+table.toString());
+        }else{
+            SugarRecord.executeQuery("delete from FAVOURITE_TABLE where channelId=? " +
+                    "and title=?",channelId+"",title);
+            Log.e("updateFavourite","删除了一条数据——"+title);
+        }
+    }
 
     /**
      * 遍历Categories

@@ -3,6 +3,8 @@ package com.lxqhmlwyh.qingtingfm.databaseentities;
 import com.orm.SugarRecord;
 
 /**
+ * 李兴权
+ * 2020年8月11日
  * 最受欢迎的节目
  */
 public class PreferProgramTable extends SugarRecord {

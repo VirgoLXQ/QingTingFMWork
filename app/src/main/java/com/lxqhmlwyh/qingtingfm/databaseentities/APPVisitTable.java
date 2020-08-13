@@ -3,6 +3,11 @@ package com.lxqhmlwyh.qingtingfm.databaseentities;
 
 import com.orm.SugarRecord;
 
+/**
+ * 李兴权
+ * app访问次数记录
+ * 2020年8月2日
+ */
 public class APPVisitTable extends SugarRecord {
     //private int id;
     private long timeStamp;

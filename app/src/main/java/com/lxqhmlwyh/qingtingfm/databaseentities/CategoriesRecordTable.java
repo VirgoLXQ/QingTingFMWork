@@ -5,6 +5,7 @@ import com.orm.SugarRecord;
 /**
  * 李兴权
  * 电台类型倾向
+ * 2020年8月12日
  */
 public class CategoriesRecordTable extends SugarRecord {
     private int categoryId;

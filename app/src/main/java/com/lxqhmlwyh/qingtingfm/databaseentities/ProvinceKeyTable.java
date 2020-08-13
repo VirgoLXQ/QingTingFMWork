@@ -3,6 +3,8 @@ package com.lxqhmlwyh.qingtingfm.databaseentities;
 import com.orm.SugarRecord;
 
 /**
+ * 李兴权
+ * 2020年8月12日
  * 记录访问某省份的访问次数
  */
 public class ProvinceKeyTable extends SugarRecord {

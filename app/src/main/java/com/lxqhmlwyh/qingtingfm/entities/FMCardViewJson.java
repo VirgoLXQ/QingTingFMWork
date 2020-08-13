@@ -2,6 +2,9 @@ package com.lxqhmlwyh.qingtingfm.entities;
 
 import java.util.List;
 
+/**
+ * 搜索结果json
+ */
 public class FMCardViewJson {
     private int content_id;
     private String content_type;
