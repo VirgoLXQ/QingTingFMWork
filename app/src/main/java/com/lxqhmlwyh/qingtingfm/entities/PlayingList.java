@@ -1,20 +1,38 @@
 package com.lxqhmlwyh.qingtingfm.entities;
 
 public class PlayingList {
-    private int channelId;
+    //private int channelId;
     private String programName;
     private String startTime;
     private String endTime;
     private String broadcasters;
     private String playUrl;
+    /*private String coverUrl;
+    private String channel;*/
 
-    public int getChannelId() {
+    /*public int getChannelId() {
         return channelId;
     }
 
     public void setChannelId(int channelId) {
         this.channelId = channelId;
+    }*/
+
+    /*public void setChannel(String channel) {
+        this.channel = channel;
     }
+
+    public String getChannel() {
+        return channel;
+    }
+
+    public void setCoverUrl(String coverUrl) {
+        this.coverUrl = coverUrl;
+    }
+
+    public String getCoverUrl() {
+        return coverUrl;
+    }*/
 
     public String getProgramName() {
         return programName;
@@ -59,8 +77,7 @@ public class PlayingList {
     @Override
     public String toString() {
         return "PlayingList{" +
-                "channelId=" + channelId +
-                ", programName='" + programName + '\'' +
+                "programName='" + programName + '\'' +
                 ", startTime='" + startTime + '\'' +
                 ", endTime='" + endTime + '\'' +
                 ", broadcasters='" + broadcasters + '\'' +

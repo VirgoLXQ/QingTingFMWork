@@ -17,9 +17,9 @@ import java.util.List;
 public class PlayService extends IntentService {
 
     public static boolean IS_SERVICING=false;
-    private static List<PlayingList> PLAYING_LIST;
-    private static boolean RUNNING=false;
-    private static MyPlayer myPlayer;
+    //private static List<PlayingList> PLAYING_LIST;
+    //private static boolean RUNNING=false;
+    //private static MyPlayer myPlayer;
 
     public PlayService(String name) {
         super(name);
@@ -31,20 +31,20 @@ public class PlayService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        if (IS_SERVICING)return;
+        /*if (IS_SERVICING)return;
         myPlayer=new MyPlayer();
-        myPlayer.playUrl(PLAYING_LIST.get(intent.getIntExtra("startIndex",0)).getPlayUrl());
+        myPlayer.playUrl(PLAYING_LIST.get(intent.getIntExtra("startIndex",0)).getPlayUrl());*/
 
     }
 
     @Override
     public void onStart(@Nullable Intent intent, int startId) {
         super.onStart(intent, startId);
-        IS_SERVICING=false;
+        /*IS_SERVICING=false;
         if (myPlayer!=null){
             myPlayer.stop();
             myPlayer=null;
-        }
+        }*/
 
         Log.e("PlayService","播放服务开启");
     }
@@ -56,11 +56,11 @@ public class PlayService extends IntentService {
     }
 
     public static void setPlayingList(List<PlayingList> playingList) {
-        PLAYING_LIST = playingList;
-        IS_SERVICING=false;
+        /*PLAYING_LIST = playingList;
+        IS_SERVICING=false;*/
     }
 
-    public static List<PlayingList> getPlayingList(){
+    /*public static List<PlayingList> getPlayingList(){
         return PLAYING_LIST;
-    }
+    }*/
 }

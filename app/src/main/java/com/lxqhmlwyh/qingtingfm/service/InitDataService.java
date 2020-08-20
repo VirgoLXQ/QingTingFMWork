@@ -77,11 +77,9 @@ public class InitDataService extends IntentService {
             userLocationInfo=data3.getJSONObject("data");
             //Log.e("userLocationInfo",userLocationInfo.toString());
 
-        } catch (JSONException e) {
+        } catch (JSONException | IOException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }catch (Exception e){
+        } catch (Exception e){
             INTERNET_ERROR=true;
             Log.e("InitDataService","网络错误");
         }

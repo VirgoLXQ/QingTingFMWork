@@ -18,6 +18,7 @@ import com.lxqhmlwyh.qingtingfm.databaseentities.APPVisitTable;
 import com.lxqhmlwyh.qingtingfm.service.InitDataService;
 import com.lxqhmlwyh.qingtingfm.utils.CommonHttpRequest;
 import com.lxqhmlwyh.qingtingfm.utils.DataBaseUtil;
+import com.lxqhmlwyh.qingtingfm.utils.DownloadUtil;
 import com.orm.SugarRecord;
 
 import org.json.JSONArray;
@@ -48,6 +49,7 @@ public class LauncherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(1024,1024);//隐藏系统状态栏
         setContentView(R.layout.activity_launcher);
+        DownloadUtil.clearCache(this);
         updateVisit();
         initView();
         initData();

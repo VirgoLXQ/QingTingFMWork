@@ -121,7 +121,8 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ProgramI
                         host=host+"  "+hostObj.getUsername();
                     }
                     playingItem.setBroadcasters(host);
-                    playingItem.setChannelId(((PlayListActivity)context).channelId);
+                    //playingItem.setChannelId(((PlayListActivity)context).channelId);
+                    playingItem.setStartTime(itemEntity.getStart_time());
                     playingItem.setPlayUrl(itemEntity.getStart_time());
                     playingItem.setEndTime(itemEntity.getEnd_time());
                     String playUrl=MyTime.changeToPlayUrl(((PlayListActivity)context).channelId,
@@ -131,17 +132,33 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ProgramI
                     playingList.add(playingItem);
                 }
 
+                clickPlayer(position,playingList);
+
                 //播放节目前的配置
-                MyPlayer.currentIndex=position;
-                PlayService.setPlayingList(playingList);
+                //MyPlayer.PLAY_LIST=playingList;
+                //MyPlayer.currentIndex=position;
+                intent.putExtra("need",true);
+                //intent.putExtra("isReset",true);
+                /*PlayService.setPlayingList(playingList);
                 Intent serIntent=new Intent(context, PlayService.class);
-                serIntent.putExtra("startIndex",position);
+                serIntent.putExtra("startIndex",position);*/
                 //启动播放服务
-                context.startService(serIntent);
+                //context.startService(serIntent);
                 //跳转到播放界面
                 context.startActivity(intent);
             }
         });
+    }
+
+    public void clickPlayer(int position,List<PlayingList> list){
+        MyPlayer myPlayer=MyPlayer.getMyPlayer();
+        if (myPlayer==null){
+            myPlayer=MyPlayer.getInstance();
+        }else{
+            myPlayer.resetPlayer();
+        }
+        myPlayer.setMusicList(list);
+        myPlayer.setListIndex(position);
     }
 
     /**

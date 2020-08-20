@@ -22,7 +22,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/play_cover"
             android:elevation="10dp"
-            android:layout_margin="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:src="@mipmap/default_album" />
 
         <TextView
@@ -43,21 +44,22 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:background="@color/material_grey"
         android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
         <androidx.appcompat.widget.AppCompatSeekBar
-            android:layout_toRightOf="@id/play_start_time"
+            android:layout_toEndOf="@id/play_start_time"
             android:layout_width="match_parent"
             android:id="@+id/play_seek_bar"
-            android:progressBackgroundTint="@color/original_red"
+            android:progressBackgroundTint="@color/original_white"
             android:progressTint="@color/original_red"
             android:layout_marginLeft="5dp"
+            android:secondaryProgress="100"
+            android:secondaryProgressTint="@color/material_red"
             android:layout_marginRight="5dp"
             android:thumbTint="@color/original_red"
-            android:layout_toLeftOf="@id/play_end_time"
+            android:layout_toStartOf="@id/play_end_time"
             android:layout_height="wrap_content">
         </androidx.appcompat.widget.AppCompatSeekBar>
 
@@ -82,11 +84,12 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_centerInParent="true"
-            android:src="@mipmap/pause"/>
+            android:src="@mipmap/play"/>
 
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:id="@+id/play_previous"
             android:layout_toLeftOf="@id/play_or_pause"
             android:layout_centerVertical="true"
             android:src="@mipmap/previous"/>
@@ -94,9 +97,19 @@
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:id="@+id/play_next"
             android:layout_toRightOf="@id/play_or_pause"
             android:layout_centerVertical="true"
             android:src="@mipmap/next"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="正在缓冲中，请稍后...50%"
+            android:id="@+id/play_text_caching"
+            android:visibility="invisible"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"/>
 
     </RelativeLayout>
 
