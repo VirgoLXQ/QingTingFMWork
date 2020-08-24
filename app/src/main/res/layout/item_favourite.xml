@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:rippleColor="@color/material_red"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="10dp"
+    app:contentPadding="5dp"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/favourite_view_item_cover"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:src="@mipmap/default_album" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="广西交通广播"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/favourite_view_item_cover"
+            android:id="@+id/favourite_title"/>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:id="@+id/favourite_heart"
+            android:layout_height="30dp"
+            android:layout_alignTop="@id/favourite_title"
+            android:layout_alignRight="@id/favourite_view_item_cover"
+            android:src="@mipmap/heart_red"/>
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

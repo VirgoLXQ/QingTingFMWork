@@ -27,6 +27,18 @@ public class FavouriteTable extends SugarRecord {
         this.channel_id = channel_id;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public int getChannel_id() {
+        return channel_id;
+    }
+
     @Override
     public String toString() {
         return "FavouriteTable{" +

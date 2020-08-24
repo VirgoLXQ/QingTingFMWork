@@ -83,54 +83,8 @@ public class DownloadUtil {
                 response.close();
             }
         });
-        /*okHttpClient.newCall(downLoadRequest).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                listener.onFailed(e.getMessage());
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                long contentLength=response.body().contentLength();
-                String saveName=downloadUrl.substring(downloadUrl.lastIndexOf("/")+1);
-                listener.OnStart(saveName,contentLength);
-                File dir=new File(downloadDirRoot);
-                if (!dir.exists()){
-                    dir.mkdirs();
-                }
-                File newFile=new File(downloadDirRoot,saveName);
-                if (newFile.exists()){
-                    listener.OnExists();
-                    response.close();
-                    return;
-                }
-                Log.e("createNewFile",newFile.createNewFile()+"");
-                InputStream inputStream;
-                byte[] buf=new byte[2048];
-                int len;
-                FileOutputStream fileOutputStream;
-
-                inputStream=response.body().byteStream();
-                fileOutputStream=new FileOutputStream(newFile);
-                long downloadedContent=0;
-                while ((len=inputStream.read(buf))!=-1){
-                    fileOutputStream.write(buf,0,len);
-                    downloadedContent+=len;
-                    int progress = (int) (downloadedContent * 1.0f / contentLength * 100);
-                    listener.getProgress(progress);
-                }
-                listener.onSuccess(downloadDirRoot+saveName);
-                fileOutputStream.flush();
-                fileOutputStream.close();
-                inputStream.close();
-                response.close();
-            }
-        });*/
     }
 
-    /*public String getDownloadDirRoot() {
-        return downloadDirRoot;
-    }*/
 
     /**
      * 清除缓存
@@ -140,6 +94,7 @@ public class DownloadUtil {
         String cacheDir=context.getFilesDir().getPath()+"/download/";
         File file=new File(cacheDir);
         String[] files= file.list();
+        if (files==null)return;
         if (files.length==0)return;
         for(String name:files){
             File temp=new File(cacheDir,name);
