@@ -94,7 +94,7 @@ public class PlayListActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(Call call, Response response) {
                 ResponseBody responseBody= response.body();
                 try {
                     JSONObject rootJson=new JSONObject(responseBody.string());
@@ -106,13 +106,10 @@ public class PlayListActivity extends AppCompatActivity {
                 } catch (JSONException | IOException e) {
                     e.printStackTrace();
                 }
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(PlayListActivity.this, "获取电台数据成功", Toast.LENGTH_SHORT).show();
-                        loadingDialog.dismiss();
-                        showPlayList();
-                    }
+                runOnUiThread(() -> {
+                    Toast.makeText(PlayListActivity.this, "获取电台数据成功", Toast.LENGTH_SHORT).show();
+                    loadingDialog.dismiss();
+                    showPlayList();
                 });
 
             }
@@ -128,15 +125,12 @@ public class PlayListActivity extends AppCompatActivity {
         recyclerView.setAdapter(programAdapter);
     }
 
-    private View.OnClickListener onClickListener=new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()){
-                case R.id.play_list_previous:
-                case R.id.play_list_back:
-                    finish();
-                    break;
-            }
+    private View.OnClickListener onClickListener= v -> {
+        switch (v.getId()){
+            case R.id.play_list_previous:
+            case R.id.play_list_back:
+                finish();
+                break;
         }
     };
 }

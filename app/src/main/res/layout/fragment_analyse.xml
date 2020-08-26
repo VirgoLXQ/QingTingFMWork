@@ -2,49 +2,12 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent">
-    <LinearLayout
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginBottom="5dp"
-        android:background="#AFABAB"
-        android:gravity="center_vertical"
-        android:paddingStart="5dp"
-        android:paddingLeft="5dp"
-        android:paddingEnd="5dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:textColor="#fff"
-            android:text="app访问次数" />
-            <RadioGroup
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginLeft="25dp">
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/material_red"
-                    android:textColor="#fff"
-                    android:text="当天"/>
-                <RadioButton
-                    android:buttonTint="@color/material_red"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#fff"
-                    android:text="过去一周"/>
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#fff"
-                    android:buttonTint="@color/material_red"
-                    android:text="过去一月"/>
-
-            </RadioGroup>
-
-    </LinearLayout>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

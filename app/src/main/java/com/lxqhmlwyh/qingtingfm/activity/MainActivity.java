@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private SearchFragment searchFragment;
     private FavouriteFragment favouriteFragment;
     private AnalyseFragment analyseFragment;
-    private BottomNavigationView bottomNav;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,14 +36,9 @@ public class MainActivity extends AppCompatActivity {
         favouriteFragment=new FavouriteFragment();
         analyseFragment=new AnalyseFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,favouriteFragment).commit();
-        bottomNav=findViewById(R.id.main_bottom_nav);
+        BottomNavigationView bottomNav = findViewById(R.id.main_bottom_nav);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
-        findViewById(R.id.to_playing).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, PlayActivity.class));
-            }
-        });
+        findViewById(R.id.to_playing).setOnClickListener(v -> startActivity(new Intent(MainActivity.this, PlayActivity.class)));
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener=new BottomNavigationView.OnNavigationItemSelectedListener() {
