@@ -38,7 +38,7 @@ public class GetFMItemJsonService extends IntentService {
         //Log.e("GetFMItemJsonService","数据下载服务开始");
         int provinceId=intent.getIntExtra("provinceId",239);
         int page=intent.getIntExtra("page",1);
-        int pageSize=intent.getIntExtra("pageSize",18);
+        int pageSize=intent.getIntExtra("pageSize",27);
         ResponseBody responseBody=
         CommonHttpRequest.getHttp("https://rapi.qingting.fm/categories/"+provinceId+
                 "/channels?with_total=true&page="+page+"&pagesize="+pageSize).body();

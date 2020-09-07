@@ -7,7 +7,6 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 import com.lxqhmlwyh.qingtingfm.entities.PlayingList;
-import com.lxqhmlwyh.qingtingfm.utils.MyPlayer;
 
 import java.util.List;
 

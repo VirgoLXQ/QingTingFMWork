@@ -22,7 +22,6 @@ import com.lxqhmlwyh.qingtingfm.databaseentities.PreferProgramTable;
 import com.lxqhmlwyh.qingtingfm.entities.Broadcasters;
 import com.lxqhmlwyh.qingtingfm.entities.PlayingList;
 import com.lxqhmlwyh.qingtingfm.entities.ProgramItemEntity;
-import com.lxqhmlwyh.qingtingfm.service.PlayService;
 import com.lxqhmlwyh.qingtingfm.utils.DataBaseUtil;
 import com.lxqhmlwyh.qingtingfm.utils.MyPlayer;
 import com.lxqhmlwyh.qingtingfm.utils.MyTime;

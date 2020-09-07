@@ -27,7 +27,8 @@ public class MyTime {
         //int monthInt=9;
         String month=monthInt>9?monthInt+"":"0"+monthInt;
         int day=calendar.get(Calendar.DAY_OF_MONTH);
-        return ""+year+month+day;
+        String dayStr=day>9?day+"":"0"+day;
+        return ""+year+month+dayStr;
     }
 
     /**

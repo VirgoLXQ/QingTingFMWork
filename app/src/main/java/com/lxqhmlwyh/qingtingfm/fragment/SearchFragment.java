@@ -28,7 +28,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lxqhmlwyh.qingtingfm.R;
 import com.lxqhmlwyh.qingtingfm.adapter.SearchRecyclerViewAdapter;
-import com.lxqhmlwyh.qingtingfm.databaseentities.APPVisitTable;
 import com.lxqhmlwyh.qingtingfm.databaseentities.ProvinceKeyTable;
 import com.lxqhmlwyh.qingtingfm.entities.FMCardViewJson;
 import com.lxqhmlwyh.qingtingfm.service.GetFMItemJsonService;
